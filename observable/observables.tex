@@ -1,0 +1,329 @@
+\documentclass[8pt]{beamer}
+
+\usepackage{minted}
+\newminted{scala}{linenos,bgcolor=dbg,frame=single}
+\newminted{text}{linenos,bgcolor=lbg,frame=single}
+\usemintedstyle{monokai}
+\newcommand{\codeclass}[1]{\texttt{\textcolor[rgb]{0.4,0.85,0.9375}{#1}}}
+\newcommand{\codemethod}[1]{\texttt{\textcolor[rgb]{0.457,0.4375,0.3667}{#1}}}
+\newcommand{\codeobject}[1]{\texttt{\textcolor[rgb]{0.65,0.885,0.18}{#1}}}
+\newcommand{\codevalue}[1]{\texttt{\textcolor[rgb]{0.975,0.15,0.45}{#1}}}
+\newcommand{\codenumber}[1]{\texttt{\textcolor[rgb]{0.68,0.5,1}{#1}}}
+\newcommand{\codestring}[1]{\texttt{\textcolor[rgb]{0.9,0.86,0.45}{#1}}}
+
+\begin{document}
+  \definecolor{dbg}{rgb}{0.25,0.25,0.25}
+  \definecolor{lbg}{rgb}{0.75,0.75,0.75}
+  \begin{center}
+    \textsc{\huge{Introduction to Rx Observables}}
+  \end{center}
+  first: let's define some convenience methods and values (will use it quite often...):
+  \begin{scalacode}
+import rx.{Observer => JObserver, Subscription => JSubscription}  
+  
+def startOnThread(body: => Unit): Thread = {
+  val t = new Thread {
+    override def run = body
+  }
+  t.start
+  t
+}
+
+val zeroTime = System.currentTimeMillis
+
+def threadTimeString = {
+  val name = Thread.currentThread.getName
+  val time = System.currentTimeMillis - zeroTime
+  s"current time on $name is: $time."
+}
+  \end{scalacode}
+  \newpage
+  
+  a ``simple'' example implementation for an \codeclass{Observable} serving as a tick source:
+  \begin{scalacode}
+val ticks: Observable[String] = Observable(observer => {
+  var cancelled = false
+  val t = startOnThread {
+    try {
+      while (!cancelled) {
+	try {
+	  observer.onNext(threadTimeString)
+	  Thread.sleep(100)
+	} catch {
+	  case e: java.lang.InterruptedException => //DO NOTHING
+	}
+      }
+      observer.onCompleted()
+    } catch {
+      case e: Throwable => observer.onError(e)
+    }
+  }
+  Subscription(new JSubscription {
+    override def unsubscribe() = {
+      cancelled = true
+      t.interrupt
+      t.join
+    }
+  })
+})
+  \end{scalacode}
+  \newpage
+  well, how would we use it? simple:
+  \begin{scalacode}
+val subscription = ticks.subscribe(println(_))
+Thread.sleep(1000)
+subscription.unsubscribe
+  \end{scalacode}
+  \medskip
+  
+  which would print something like:
+  \begin{textcode}
+current time on Thread-0 is: 222.
+current time on Thread-0 is: 337.
+current time on Thread-0 is: 437.
+current time on Thread-0 is: 538.
+current time on Thread-0 is: 638.
+current time on Thread-0 is: 739.
+current time on Thread-0 is: 839.
+current time on Thread-0 is: 940.
+current time on Thread-0 is: 1040.
+current time on Thread-0 is: 1141.
+  \end{textcode}
+  \newpage
+  
+  but if want better control, in case we want to treat errors or execute something when 
+  the \codeclass{Ovservable} announces completion, we will need to define an \codeclass{Observer}
+  \begin{scalacode}
+val ticksConsumer: Observer[String] = Observer(
+  new JObserver[String]{
+    def onNext(s: String) = println(s)
+    def onError(e: Throwable) = logger.error(e.getMessage)
+    def onCompleted() = println("DONE!")
+  }
+)
+  \end{scalacode}
+  \smallskip
+  
+  usage is similar:
+  \begin{scalacode}
+val subscription = ticks.subscribe(ticksConsumer)
+Thread.sleep(1000)
+subscription.unsubscribe
+  \end{scalacode}
+  
+  \newpage
+  
+  and now, the output contains a ``DONE!'' print:
+  \begin{textcode}
+current time on Thread-0 is: 201.
+current time on Thread-0 is: 314.
+current time on Thread-0 is: 414.
+current time on Thread-0 is: 515.
+current time on Thread-0 is: 615.
+current time on Thread-0 is: 716.
+current time on Thread-0 is: 816.
+current time on Thread-0 is: 917.
+current time on Thread-0 is: 1017.
+current time on Thread-0 is: 1118.
+DONE!   
+  \end{textcode}
+  \medskip
+  
+  but the shown code has some problems:
+  \begin{itemize}
+    \item \text{the \codeclass{Observable}'s code is somewhat boilerplate}
+    \item \text{the whole chain of execution is done on a single thread}
+    \item \text{\codeclass{Scheduler}s...?}
+    \item \text{what would happen if more than one \codeclass{Observer} subscribes to this \codeclass{Observable}?} %answer: a new thread will be created for every observer subscribing.
+  \end{itemize}
+  
+  \newpage
+  let's try to improve our solution. \\ 
+  first, consider a very naive implementation of a ``ticks source'':
+  \begin{scalacode}
+object TickSource {
+  private var callbacks: Map[Int, () => Unit] = Map.empty
+  private var counter = 0
+  private var cancelled = false
+  private val t = startOnThread {
+    while (!cancelled) {
+      Thread.sleep(100)
+      callbacks.foreach(_._2())
+    }
+  }
+
+  def onTick(callback: => Unit): Int = {
+    counter = counter + 1
+    callbacks = callbacks +(counter, () => callback)
+    counter
+  }
+
+  def remove(key: Int): Unit = {callbacks = callbacks - key}
+
+  def shutdown = {cancelled = true; t.join}
+}
+  \end{scalacode}
+  \smallskip
+    
+  \texbf{NOTE:} the above code is very naive. I kept it short for this toy example.
+  a real implementation though must take care of synchronizing the \codemethod{onTick} and \codemethod{remove} methods (among other things...).
+  \newpage
+  
+  also, we'll need to define the \codeclass{Observable} that will use \codeobject{TickSource} as it's source.
+  \begin{scalacode}
+val ticks: Observable[String] = Observable(observer => {
+  val key = TickSource.onTick {
+    observer.onNext(threadTimeString)
+  }
+  Subscription(new JSubscription {
+    override def unsubscribe() = TickSource.remove(key)
+  })
+})
+  \end{scalacode}
+
+  so, now we can use it exactly as before:
+  \begin{scalacode}
+val subscription = ticks.subscribe(ticksConsumer)
+Thread.sleep(1000)
+subscription.unsubscribe
+TickSource.shutdown //just to ensure the proccess won't hang...
+  \end{scalacode}
+  \smallskip
+  
+  \textbf{NOTE:} there is no \codemethod{onCompleted} method in this scenario. the source is infinite, and does not ``completes''
+  \newpage
+  
+  and we'll get:
+  \begin{textcode}
+current time on Thread-0 is: 271.
+current time on Thread-0 is: 385.
+current time on Thread-0 is: 485.
+current time on Thread-0 is: 586.
+current time on Thread-0 is: 686.
+current time on Thread-0 is: 787.
+current time on Thread-0 is: 887.
+current time on Thread-0 is: 988.
+current time on Thread-0 is: 1088.
+current time on Thread-0 is: 1189.
+  \end{textcode}
+  \smallskip
+  
+  well, that took care of some problems. but it's still not perfect.
+  we would want to sepparate the source work and consume work to be done on different threads.
+  luckily, there's a simple to use API for that: \codemethod{observeOn}.
+  \begin{scalacode}
+val scheduler = rx.lang.scala.concurrency.Schedulers.newThread
+val subscription = ticks.observeOn(scheduler).subscribe{s =>
+  println(s"$s\n${threadTimeString}")
+}
+Thread.sleep(1000)
+subscription.unsubscribe
+  \end{scalacode}
+  
+  \newpage
+  and the output now looks like:
+  \begin{textcode}
+current time on Thread-0 is: 305.
+current time on RxNewThreadScheduler-1 is: 328.
+current time on Thread-0 is: 426.
+current time on RxNewThreadScheduler-1 is: 427.
+current time on Thread-0 is: 527.
+current time on RxNewThreadScheduler-1 is: 527.
+current time on Thread-0 is: 627.
+current time on RxNewThreadScheduler-1 is: 628.
+current time on Thread-0 is: 728.
+current time on RxNewThreadScheduler-1 is: 729.
+current time on Thread-0 is: 829.
+current time on RxNewThreadScheduler-1 is: 829.
+current time on Thread-0 is: 929.
+current time on RxNewThreadScheduler-1 is: 930.
+current time on Thread-0 is: 1030.
+current time on RxNewThreadScheduler-1 is: 1030.
+current time on Thread-0 is: 1130.
+current time on RxNewThreadScheduler-1 is: 1131.   
+  \end{textcode}
+
+  since a ``NewThread'' \codeclass{Schduler} is usually not what we want, \\
+  when in doubt, you can use this \codeclass{Schduler} instead:
+  \begin{scalacode}
+import rx.lang.scala.concurrency.Schedulers.executor
+import scala.concurrent.ExecutionContext.Implicits.global
+val scheduler = executor(global)
+  \end{scalacode}
+  \newpage
+  
+  cool stuff:
+  \begin{scalacode}
+def actOn(ss: Seq[String]) = {
+  val t = threadTimeString
+  val s = ss.mkString("\n")
+  println(s"$t\n${t.map(_ => '*')}\n$s\n")
+}
+
+val multipleTicksConsumer = Observer(new JObserver[Seq[String]]{
+  def onNext(ss: Seq[String]) = actOn(ss)
+  def onError(e: Throwable) = logger.error(e.getMessage)
+  def onCompleted() = println("DONE!")
+})
+
+val scheduler2 = rx.lang.scala.concurrency.Schedulers.newThread
+
+//previous ticks was a toy example. there's a method call for that:
+val ticks1 = Observable.interval(100 millis, scheduler)
+val ticks2 = ticks1.map(_ => threadTimeString)
+val ticks3 = ticks2.observeOn(scheduler2)
+val ticks4 = ticks3.buffer(500 milliseconds, 4)
+
+val subscription = ticks4.subscribe(multipleTicksConsumer)
+Thread.sleep(1000)
+subscription.unsubscribe
+  \end{scalacode}
+  \newpage
+  
+  and the output:
+  \begin{textcode}
+current time on RxNewThreadScheduler-1 is: 611.
+***********************************************
+current time on ForkJoinPool-1-worker-5 is: 274.
+current time on ForkJoinPool-1-worker-5 is: 386.
+current time on ForkJoinPool-1-worker-3 is: 487.
+current time on ForkJoinPool-1-worker-5 is: 587.
+
+current time on RxNewThreadScheduler-1 is: 991.
+***********************************************
+current time on ForkJoinPool-1-worker-3 is: 688.
+current time on ForkJoinPool-1-worker-5 is: 789.
+current time on ForkJoinPool-1-worker-3 is: 889.
+current time on ForkJoinPool-1-worker-5 is: 990.
+  \end{textcode}
+  \medskip
+  
+  \begin{center}
+    \begin{tabular}{ | c | c | c | }
+      \hline
+      name & type & runs on \\ \hline
+      ticks1 & Observable[Long] & ForkJoinPool-1-worker-N \\ \hline
+      ticks2 & Observable[String] & ForkJoinPool-1-worker-N \\ \hline
+      ticks3 & Observable[String] & RxNewThreadScheduler-1 \\ \hline
+      ticks4 & Observable[Seq[String]] & RxNewThreadScheduler-1 \\ \hline
+    \end{tabular}
+  \end{center}
+  \newpage
+  
+  \begin{center}
+    \textsc{\huge{Appendix}}
+  \end{center}  
+  
+  How to write an \codeclass{Observable} the ``scala way'' with no \codeobject{TickSource},\\
+  and a ``built in'' \codeclass{Scheduler}:
+  \begin{scalacode}
+val ticks: Observable[String] = Observable(observer => {
+  scheduler.scheduleRec(self => {
+    observer.onNext(threadTimeString)
+    Thread.sleep(100)
+    self
+  })
+})
+  \end{scalacode}
+  \smallskip
+\end{document}
