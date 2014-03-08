@@ -1,5 +1,7 @@
 \documentclass[8pt]{beamer}
 
+\usefonttheme{professionalfonts}
+
 \author{Gilad Hoch}
 \date{7.3.2014}
 
@@ -15,22 +17,46 @@
       \item defining the multiphase problem
       \item conjecture 1. the multiphase conjecture
       \item implications of the multiphase conecture
+      \item the $3SUM$ problem
+      \item ...
     \end{enumerate}
   }
 
   \frame{
     \begin{itemize}
       \item \textbf{dynamic reachability:} maintain a data structure representing a directed graph which supports the following actions: 
-	    \begin{enumerate}
-	    \item $insert(u,v)$ - insert an edge between $u$ and $v$
-	    \item $delete(u,v)$ - delete the edge between $u$ and $v$
-	    \item $reachability(u,v)$ - is there a directed path from $u$ to $v$?
-	    \end{enumerate}
-      \item \textbf{dynamic shortest paths:}
-      \item \textbf{subgraph connectivity:}
-      \item \textbf{Langerman's problems:}
-      \item \textbf{Pagh's problem:}
-      \item \textbf{Erickson's problem:}
+	\begin{enumerate}
+	  \item $insert(u,v)$ - insert an edge between $u$ and $v$
+	  \item $delete(u,v)$ - delete the edge between $u$ and $v$
+	  \item $reachability(u,v)$ - is there a directed path from $u$ to $v$?
+	\end{enumerate}
+      \item \textbf{dynamic shortest paths:} maintain a data structure representing an undirected graph which supports the following actions: 
+	\begin{enumerate}
+	  \item $insert(u,v)$ - insert an edge between $u$ and $v$
+	  \item $delete(u,v)$ - delete the edge between $u$ and $v$
+	  \item $length(u,v)$ - what is the length of the shortest path from $u$ to $v$?
+	\end{enumerate}
+      \item \textbf{subgraph connectivity:} preprocess undirected graphs to support the actions:
+	\begin{enumerate}
+	  \item $toggle(u)$ - turn node $u$ on/off
+	  \item $connectivity(u,v)$ - is there a path between $u$ and $v$ that passes only in ``on'' nodes?
+	\end{enumerate}
+      \item \textbf{Langerman's problems:} maintain an array $A[1,\dots,n]$ of integers, under the following actions:
+	\begin{enumerate}
+	  \item $update(i,x)$ - $A[i]\leftarrow x$
+	  \item $zeroSum$ - is there a $k$ such that $\sum_{i=1}^{k}{A[i]}=0$ ?
+	\end{enumerate}
+      \item \textbf{Pagh's problem:} preprocess a family of sets $X_1,X_2,\dots\subseteq[n]$ to support the following actions:
+	\begin{enumerate}
+	  \item $create(i,j)$ - create a new set $X_{new}\leftarrow{A_i\cap{A_j}}$
+	  \item $query(i,z)$ - determine if $z\in{A_i}$
+	\end{enumerate}
+      \item \textbf{Erickson's problem:} preprocess an integers matrix to support:
+	\begin{enumerate}
+	  \item $incrementRow(i)$ - increment all values in row $i$
+	  \item $incrementCol(i)$ - increment all values in column $i$
+	  \item $max$ - return the maximum value in the matrix
+	\end{enumerate}
     \end{itemize}
   }
 
