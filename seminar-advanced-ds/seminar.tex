@@ -3,23 +3,48 @@
 \usefonttheme{professionalfonts}
 
 \author{Gilad Hoch}
-\date{7.3.2014}
+\date{18.3.2014}
 
 \setbeamertemplate{itemize item}[ball]
+
+
+\newtheorem{thm}{Theorem.}[section]      
+\newtheorem{dfn}[thm]{Definition.}      
+\newtheorem{corr}[thm]{Corollary.}      
+\newtheorem{lem}[thm]{Lemma.}
+\newtheorem{prop}[thm]{Proposition.}
+\newtheorem{clm}[thm]{Claim.}           
+\newtheorem{nota}[thm]{Notation.}            
+\newtheorem{property}[thm]{Property.}
+\newtheorem{algorithm}[thm]{Algorithm.}            
+\newtheorem{conjecture}[thm]{Conjecture.}           
+
+
+\def\blackslug
+{\hbox{\hskip 1pt\vrule width 8pt height 8pt depth 1.5pt\hskip 1pt}}
+\def\qed{\quad\blackslug\lower 8.5pt\null\par}
+\def\qqed{$\Box$}
+
+\newcommand{\BPR}{\begin{myprot}}   \newcommand{\EPR}{\end{myprot}}
+\newenvironment{proofsketch}{\noindent{\bf Proof Sketch.~~}}{\qed}
+\newcommand{\BPFS}{\begin{proofsketch}} \newcommand {\EPFS}{\hfill\end{proofsketch}}
+
+
 
 \begin{document}
   \frame{
     \begin{center}
-      \textsc{\huge{Finding lower bounds for dynamic problems}}
+      \textsc{\Huge{Towards Polynomial Lower Bounds for Dynamic Problems}}
     \end{center}
-    \begin{enumerate}
-      \item presenting a few dynamic problems
-      \item defining the multiphase problem
-      \item conjecture 1. the multiphase conjecture
-      \item implications of the multiphase conecture
-      \item the $3SUM$ problem
-      \item ...
-    \end{enumerate}
+%    \maketitle
+%    \begin{enumerate}
+%      \item presenting a few dynamic problems
+%      \item defining the multiphase problem
+%      \item conjecture 1. the multiphase conjecture
+%      \item implications of the multiphase conecture
+%      \item the $3SUM$ problem
+%      \item ...
+%    \end{enumerate}
   }
 
   \frame{
@@ -51,13 +76,58 @@
 	  \item $create(i,j)$ - create a new set $X_{new}\leftarrow{A_i\cap{A_j}}$
 	  \item $query(i,z)$ - determine if $z\in{A_i}$
 	\end{enumerate}
-      \item \textbf{Erickson's problem:} preprocess an integers matrix to support:
+      \item \textbf{Erickson's problem:} preprocess an integers matrix $M$ to support:
 	\begin{enumerate}
-	  \item $incrementRow(i)$ - increment all values in row $i$
-	  \item $incrementCol(i)$ - increment all values in column $i$
-	  \item $max$ - return the maximum value in the matrix
+	  \item $incrementRow(M,i)$ - increment all values in row $i$
+	  \item $incrementCol(M,i)$ - increment all values in column $i$
+	  \item $max(M)$ - return the maximum value in the matrix
 	\end{enumerate}
     \end{itemize}
   }
-
+  
+  \frame{
+    \begin{center}
+      \textsc{\huge{the multiphase problem}}
+    \end{center}
+    \begin{enumerate}
+      \item[\emph{phase   I}] pre-process an input of $k$ sets, $S_1,\dots,S_k\subset[n]$ in time $O(nk\cdot\tau)$ \linebreak(build a data structure for the next phases)
+      \item[\emph{phase  II}] process yet another input of a set $T\subseteq[n]$ in time $O(n\cdot\tau)$ \linebreak(update the data structure from phase I)
+      \item[\emph{phase III}] answer queries: given an index $i\in[k]$, determine if $S_i\cap{T}=\varnothing$
+    \end{enumerate}    
+  }
+  
+  \frame{
+    \begin{center}
+      \textsc{\huge{the multiphase problem}}
+    \end{center}
+    \begin{enumerate}
+      \item[\emph{phase   I}] pre-process an input of $k$ sets, $S_1,\dots,S_k\subset[n]$ in time $O(nk\cdot\tau)$ \linebreak(build a data structure for the next phases)
+      \item[\emph{phase  II}] process yet another input of a set $T\subseteq[n]$ in time $O(n\cdot\tau)$ \linebreak(update the data structure from phase I)
+      \item[\emph{phase III}] answer queries: given an index $i\in[k]$, determine if $S_i\cap{T}=\varnothing$
+    \end{enumerate}    
+    
+    \begin{conjecture}
+     $\exists$ constants $\gamma>1$, and $\delta>0$ \linebreak such that: $k=\Theta(n^\gamma)\Longrightarrow\tau=\Omega(n^\delta)$
+    \end{conjecture}
+  }
+  
+  \frame{
+    \begin{center}
+      \textsc{\huge{the multiphase problem}}
+    \end{center}
+    \begin{enumerate}
+      \item[\emph{phase   I}] pre-process an input of $k$ sets, $S_1,\dots,S_k\subset[n]$ in time $O(nk\cdot\tau)$ \linebreak(build a data structure for the next phases)
+      \item[\emph{phase  II}] process yet another input of a set $T\subseteq[n]$ in time $O(n\cdot\tau)$ \linebreak(update the data structure from phase I)
+      \item[\emph{phase III}] answer queries: given an index $i\in[k]$, determine if $S_i\cap{T}=\varnothing$
+    \end{enumerate}    
+    
+    \begin{conjecture}
+     $\exists$ constants $\gamma>1$, and $\delta>0$ \linebreak such that: $k=\Theta(n^\gamma)\Longrightarrow\tau=\Omega(n^\delta)$
+    \end{conjecture}
+    
+    \begin{thm}
+     if the multiphase problem is hard (in the sense of the conjecture) $\Longrightarrow$ for every problem we saw previously $\exists\epsilon>0$ such that the problem cannot be solved with $O(N^\epsilon)$ per operation and $O(N^{1+\epsilon})$ pre-processing time.
+    \end{thm}
+  }
+  
 \end{document}
