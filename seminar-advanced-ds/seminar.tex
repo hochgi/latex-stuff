@@ -130,4 +130,29 @@
     \end{thm}
   }
   
+  \frame{
+    \begin{center}
+      \textsc{\huge{the 3SUM problem}}
+    \end{center}
+    \begin{enumerate}
+      \item[\emph{input:}] a set $S$ of $n$ numbers
+      \item[\emph{output:}] find distinct $x,y,z\in{S}$ such that $x+y=z$
+    \end{enumerate}    
+  }
+  
+  \frame{
+    \begin{center}
+      \textsc{\huge{the 3SUM problem}}
+    \end{center}
+    \begin{enumerate}
+      \item[\emph{input:}] a set $S$ of $n$ numbers
+      \item[\emph{output:}] find distinct $x,y,z\in{S}$ such that $x+y=z$
+    \end{enumerate}   
+    
+    \begin{conjecture}
+     in the word RAM model with words of $O(\log(n))$ bits, any algorithm requires $n^{2-o(1)}$ time in expectation to determine whether a set $S\subset\{-n^3,\dots,n^3\}$ of $|S|=n$ integers contains a triple of distinct $x,y,z\in{S}$ with $x+y=z$.
+    \end{conjecture}
+  }
+  
+  
 \end{document}
