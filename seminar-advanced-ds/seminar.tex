@@ -1,33 +1,26 @@
 \documentclass[8pt]{beamer}
 
-\usefonttheme{professionalfonts}
+\usepackage{xfrac}
+
+\usetheme{Boadilla}
+\usefonttheme{structuresmallcapsserif}
+\usecolortheme{rose}
 
 \author{Gilad Hoch}
 \date{18.3.2014}
 
-\setbeamertemplate{itemize item}[ball]
+\theoremstyle{plain}
 
-
-\newtheorem{thm}{Theorem.}[section]      
-\newtheorem{dfn}[thm]{Definition.}      
-\newtheorem{corr}[thm]{Corollary.}      
-\newtheorem{lem}[thm]{Lemma.}
-\newtheorem{prop}[thm]{Proposition.}
-\newtheorem{clm}[thm]{Claim.}           
-\newtheorem{nota}[thm]{Notation.}            
-\newtheorem{property}[thm]{Property.}
-\newtheorem{algorithm}[thm]{Algorithm.}            
-\newtheorem{conjecture}[thm]{Conjecture.}           
-
-
-\def\blackslug
-{\hbox{\hskip 1pt\vrule width 8pt height 8pt depth 1.5pt\hskip 1pt}}
-\def\qed{\quad\blackslug\lower 8.5pt\null\par}
-\def\qqed{$\Box$}
-
-\newcommand{\BPR}{\begin{myprot}}   \newcommand{\EPR}{\end{myprot}}
-\newenvironment{proofsketch}{\noindent{\bf Proof Sketch.~~}}{\qed}
-\newcommand{\BPFS}{\begin{proofsketch}} \newcommand {\EPFS}{\hfill\end{proofsketch}}
+\newtheorem{thm}{Theorem}
+\newtheorem{dfn}[thm]{Definition}      
+\newtheorem{corr}[thm]{Corollary}      
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{clm}[thm]{Claim}           
+\newtheorem{nota}[thm]{Notation}            
+\newtheorem{property}[thm]{Property}
+\newtheorem{algorithm}[thm]{Algorithm}            
+\newtheorem{conjecture}[thm]{Conjecture}           
 
 
 
@@ -89,24 +82,28 @@
     \begin{center}
       \textsc{\huge{the multiphase problem}}
     \end{center}
-    \begin{enumerate}
-      \item[\emph{phase   I}] pre-process an input of $k$ sets, $S_1,\dots,S_k\subset[n]$ in time $O(nk\cdot\tau)$ \linebreak(build a data structure for the next phases)
-      \item[\emph{phase  II}] process yet another input of a set $T\subseteq[n]$ in time $O(n\cdot\tau)$ \linebreak(update the data structure from phase I)
-      \item[\emph{phase III}] answer queries: given an index $i\in[k]$, determine if $S_i\cap{T}=\varnothing$
-    \end{enumerate}    
+    \setlength{\leftmargini}{75pt}
+      \begin{enumerate}
+	\item[\emph{phase   I}] pre-process an input of $k$ sets, $S_1,\dots,S_k\subset[n]$ in time $O(nk\cdot\tau)$ \linebreak(build a data structure for the next phases)
+	\item[\emph{phase  II}] process yet another input of a set $T\subseteq[n]$ in time $O(n\cdot\tau)$ \linebreak(update the data structure from phase I)
+	\item[\emph{phase III}] answer queries: given an index $i\in[k]$, determine if $S_i\cap{T}=\varnothing$
+      \end{enumerate}
+
+
   }
   
   \frame{
     \begin{center}
       \textsc{\huge{the multiphase problem}}
     \end{center}
+    \setlength{\leftmargini}{75pt}
     \begin{enumerate}
       \item[\emph{phase   I}] pre-process an input of $k$ sets, $S_1,\dots,S_k\subset[n]$ in time $O(nk\cdot\tau)$ \linebreak(build a data structure for the next phases)
       \item[\emph{phase  II}] process yet another input of a set $T\subseteq[n]$ in time $O(n\cdot\tau)$ \linebreak(update the data structure from phase I)
       \item[\emph{phase III}] answer queries: given an index $i\in[k]$, determine if $S_i\cap{T}=\varnothing$
     \end{enumerate}    
     
-    \begin{conjecture}
+    \begin{conjecture}[1]
      $\exists$ constants $\gamma>1$, and $\delta>0$ \linebreak such that: $k=\Theta(n^\gamma)\Longrightarrow\tau=\Omega(n^\delta)$
     \end{conjecture}
   }
@@ -115,17 +112,18 @@
     \begin{center}
       \textsc{\huge{the multiphase problem}}
     \end{center}
+    \setlength{\leftmargini}{75pt}
     \begin{enumerate}
       \item[\emph{phase   I}] pre-process an input of $k$ sets, $S_1,\dots,S_k\subset[n]$ in time $O(nk\cdot\tau)$ \linebreak(build a data structure for the next phases)
       \item[\emph{phase  II}] process yet another input of a set $T\subseteq[n]$ in time $O(n\cdot\tau)$ \linebreak(update the data structure from phase I)
       \item[\emph{phase III}] answer queries: given an index $i\in[k]$, determine if $S_i\cap{T}=\varnothing$
     \end{enumerate}    
     
-    \begin{conjecture}
+    \begin{conjecture}[1]
      $\exists$ constants $\gamma>1$, and $\delta>0$ \linebreak such that: $k=\Theta(n^\gamma)\Longrightarrow\tau=\Omega(n^\delta)$
     \end{conjecture}
     
-    \begin{thm}
+    \begin{thm}[2]
      if the multiphase problem is hard (in the sense of the conjecture) $\Longrightarrow$ for every problem we saw previously $\exists\epsilon>0$ such that the problem cannot be solved with $O(N^\epsilon)$ per operation and $O(N^{1+\epsilon})$ pre-processing time.
     \end{thm}
   }
@@ -134,6 +132,7 @@
     \begin{center}
       \textsc{\huge{the 3SUM problem}}
     \end{center}
+    \setlength{\leftmargini}{30pt}
     \begin{enumerate}
       \item[\emph{input:}] a set $S$ of $n$ numbers
       \item[\emph{output:}] find distinct $x,y,z\in{S}$ such that $x+y=z$
@@ -144,15 +143,45 @@
     \begin{center}
       \textsc{\huge{the 3SUM problem}}
     \end{center}
+    \setlength{\leftmargini}{30pt}
     \begin{enumerate}
       \item[\emph{input:}] a set $S$ of $n$ numbers
       \item[\emph{output:}] find distinct $x,y,z\in{S}$ such that $x+y=z$
     \end{enumerate}   
     
-    \begin{conjecture}
-     in the word RAM model with words of $O(\log(n))$ bits, any algorithm requires $n^{2-o(1)}$ time in expectation to determine whether a set $S\subset\{-n^3,\dots,n^3\}$ of $|S|=n$ integers contains a triple of distinct $x,y,z\in{S}$ with $x+y=z$.
-    \end{conjecture}
-  }
+    \begin{thm}[3]
+     Under the 3SUM conjecture, the multiphase problem with $k=\Theta(n^{2.5})$ requires $\tau\ge{n^{0.5-o(1)}}$ on the word RAM.
+    \end{thm}
+  }    
+  
+  \frame{
+    \begin{center}
+      \textsc{\huge{the 3SUM problem}}
+    \end{center}
+    \setlength{\leftmargini}{30pt}
+    \begin{enumerate}
+      \item[\emph{input:}] a set $S$ of $n$ numbers
+      \item[\emph{output:}] find distinct $x,y,z\in{S}$ such that $x+y=z$
+    \end{enumerate}   
+    
+    \begin{thm}[3]
+     Under the 3SUM conjecture, the multiphase problem with $k=\Theta(n^{2.5})$ requires $\tau\ge{n^{0.5-o(1)}}$ on the word RAM.
+    \end{thm}
+    
+    \begin{thm}[4]
+     In a weighted graph with $m$ edges, finding a triangle of prescribed weight in $O(m^{1.5-\epsilon})$ time is 3SUM-hard.
+    \end{thm}
+    
+    \begin{thm}[5]
+     In a graph with $m$ edges, reporting $m$ triangles in $O(m^{\sfrac{4}{3}-\epsilon})$ time is 3SUM-hard.
+    \end{thm}
+
+  }    
+  
+%    \begin{conjecture}
+%     in the word RAM model with words of $O(\log(n))$ bits, any algorithm requires $n^{2-o(1)}$ time in expectation to determine whether a set $S\subset\{-n^3,\dots,n^3\}$ of $|S|=n$ integers contains a triple of distinct $x,y,z\in{S}$ with $x+y=z$.
+%    \end{conjecture}
+
   
   
 \end{document}
