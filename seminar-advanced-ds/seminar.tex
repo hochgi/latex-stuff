@@ -1,4 +1,5 @@
 \documentclass[8pt]{beamer}
+%\setbeamertemplate{theorems}[numbered]
 
 \usepackage{xfrac}
 
@@ -104,7 +105,7 @@
     \end{enumerate}    
     
     \begin{conjecture}[1]
-     $\exists$ constants $\gamma>1$, and $\delta>0$ \linebreak such that: $k=\Theta(n^\gamma)\Longrightarrow\tau=\Omega(n^\delta)$
+    $\exists$ constants $\gamma>1$, and $\delta>0$ \linebreak such that: $k=\Theta(n^\gamma)\Longrightarrow\tau=\Omega(n^\delta)$
     \end{conjecture}
   }
   
@@ -120,11 +121,11 @@
     \end{enumerate}    
     
     \begin{conjecture}[1]
-     $\exists$ constants $\gamma>1$, and $\delta>0$ \linebreak such that: $k=\Theta(n^\gamma)\Longrightarrow\tau=\Omega(n^\delta)$
+    $\exists$ constants $\gamma>1$, and $\delta>0$ \linebreak such that: $k=\Theta(n^\gamma)\Longrightarrow\tau=\Omega(n^\delta)$
     \end{conjecture}
     
     \begin{thm}[2]
-     if the multiphase problem is hard (in the sense of the conjecture) $\Longrightarrow$ for every problem we saw previously $\exists\epsilon>0$ such that the problem cannot be solved with $O(N^\epsilon)$ per operation and $O(N^{1+\epsilon})$ pre-processing time.
+    if the multiphase problem is hard (in the sense of the conjecture) $\Longrightarrow$ for every problem we saw previously $\exists\epsilon>0$ such that the problem cannot be solved with $O(N^\epsilon)$ per operation and $O(N^{1+\epsilon})$ pre-processing time.
     \end{thm}
   }
   
@@ -150,7 +151,7 @@
     \end{enumerate}   
     
     \begin{thm}[3]
-     Under the 3SUM conjecture, the multiphase problem with $k=\Theta(n^{2.5})$ requires $\tau\ge{n^{0.5-o(1)}}$ on the word RAM.
+    Under the 3SUM conjecture, the multiphase problem with $k=\Theta(n^{2.5})$ requires $\tau\ge{n^{0.5-o(1)}}$ on the word RAM.
     \end{thm}
   }    
   
@@ -165,23 +166,73 @@
     \end{enumerate}   
     
     \begin{thm}[3]
-     Under the 3SUM conjecture, the multiphase problem with $k=\Theta(n^{2.5})$ requires $\tau\ge{n^{0.5-o(1)}}$ on the word RAM.
+    Under the 3SUM conjecture, the multiphase problem with $k=\Theta(n^{2.5})$ requires $\tau\ge{n^{0.5-o(1)}}$ on the word RAM.
     \end{thm}
     
     \begin{thm}[4]
-     In a weighted graph with $m$ edges, finding a triangle of prescribed weight in $O(m^{1.5-\epsilon})$ time is 3SUM-hard.
+    In a weighted graph with $m$ edges, finding a triangle of prescribed weight in $O(m^{1.5-\epsilon})$ time is 3SUM-hard.
     \end{thm}
     
     \begin{thm}[5]
-     In a graph with $m$ edges, reporting $m$ triangles in $O(m^{\sfrac{4}{3}-\epsilon})$ time is 3SUM-hard.
+    In a graph with $m$ edges, reporting $m$ triangles in $O(m^{\sfrac{4}{3}-\epsilon})$ time is 3SUM-hard.
     \end{thm}
 
   }    
   
-%    \begin{conjecture}
-%     in the word RAM model with words of $O(\log(n))$ bits, any algorithm requires $n^{2-o(1)}$ time in expectation to determine whether a set $S\subset\{-n^3,\dots,n^3\}$ of $|S|=n$ integers contains a triple of distinct $x,y,z\in{S}$ with $x+y=z$.
-%    \end{conjecture}
+  \frame{
+    \begin{center}
+      \textsc{\huge{the 3SUM problem}}
+    \end{center}
+    \setlength{\leftmargini}{30pt}
+    \begin{enumerate}
+      \item[\emph{input:}] a set $S$ of $n$ numbers
+      \item[\emph{output:}] find distinct $x,y,z\in{S}$ such that $x+y=z$
+    \end{enumerate}   
+    
+    \begin{conjecture}[6: 3SUM-HARDNESS]
+    in the word RAM model with words of $O(\log(n))$ bits, any algorithm requires $n^{2-o(1)}$ time in expectation to determine whether a set $S\subset\{-n^3,\dots,n^3\}$ of $|S|=n$ integers contains a triple of distinct $x,y,z\in{S}$ with $x+y=z$.
+    \end{conjecture}
+  }
 
+  \frame{
+    \begin{center}
+      \textsc{\huge{Convolution 3SUM}}
+    \end{center}
+    \setlength{\leftmargini}{30pt}
+    \begin{enumerate}
+      \item[\emph{input:}] an Array $SA[1..n]$ of $n$ integers
+      \item[\emph{output:}] find 2 indexes $i\ne{j}$ such that $A[i]+A[j]=A[i+j]$
+    \end{enumerate}   
+  }
   
-  
+  \frame{
+    \begin{center}
+      \textsc{\huge{Convolution 3SUM}}
+    \end{center}
+    \setlength{\leftmargini}{30pt}
+    \begin{enumerate}
+      \item[\emph{input:}] an Array $SA[1..n]$ of $n$ integers
+      \item[\emph{output:}] find 2 indexes $i\ne{j}$ such that $A[i]+A[j]=A[i+j]$
+    \end{enumerate} 
+    \begin{thm}[10]
+      If 3SUM requires $\Omega(\sfrac{n^2}{f(n)})$ expected time, convolution-3SUM requires $\Omega(\sfrac{n^2}{f^2(n\cdot{f(n)})})$ expected time.
+    \end{thm}
+  }
+
+  \frame{
+    \begin{center}
+      \textsc{\huge{Hardness of Reporting Triangles}}
+    \end{center}
+    \begin{lem}[11]
+      Assume Convolution-3SUM requires $\Omega(\sfrac{n^2}{f(n)})$ expected time, and let $R$ be:
+      $$\omega(\sqrt{n\cdot{f(n)}})<R<o(\sfrac{n}{f(n)})$$.
+      Then, $\Omega(\sfrac{n^2}{f(n)})$ expected time is needed to report $O(\sfrac{n^2}{R})$ triangles in a tripartite graph where:
+      \begin{itemize}
+       \item the three parts are $A,B,C$, of sizes $|A|=|B|=R\sqrt{n}$ and $|C|=n$;
+       \item each vertex in $A\cup{B}$ has $O(\sfrac{n}{R})$ neighbors in $C$;
+       \item there are $O(nR)$ edges in $A\times{B}$.
+      \end{itemize}
+
+    \end{lem}
+  }
 \end{document}
