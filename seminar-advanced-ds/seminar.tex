@@ -1,8 +1,10 @@
 \documentclass[8pt]{beamer}
 %\setbeamertemplate{theorems}[numbered]
 
+\usepackage{tikz}
 \usepackage{xfrac}
 
+\usetikzlibrary{shapes,shapes.geometric}
 \usetheme{Boadilla}
 \usefonttheme{structuresmallcapsserif}
 \usecolortheme{rose}
@@ -217,6 +219,59 @@
     \begin{thm}[10]
       If 3SUM requires $\Omega(\sfrac{n^2}{f(n)})$ expected time, convolution-3SUM requires $\Omega(\sfrac{n^2}{f^2(n\cdot{f(n)})})$ expected time.
     \end{thm}
+  }  
+  
+  \frame{
+    \begin{center}
+      \textsc{\huge{Convolution 3SUM}}
+    \end{center}
+    \setlength{\leftmargini}{30pt}
+    \begin{enumerate}
+      \item[\emph{input:}] an Array $SA[1..n]$ of $n$ integers
+      \item[\emph{output:}] find 2 indexes $i\ne{j}$ such that $A[i]+A[j]=A[i+j]$
+    \end{enumerate} 
+    \begin{thm}[10]
+      If 3SUM requires $\Omega(\sfrac{n^2}{f(n)})$ expected time, convolution-3SUM requires $\Omega(\sfrac{n^2}{f^2(n\cdot{f(n)})})$ expected time.
+    \end{thm}
+    \begin{center}
+      \begin{tikzpicture}
+      
+      \node [cloud, thick, blue, fill=cyan, draw,cloud puffs=10,cloud puff arc=120, aspect=2, inner ysep=1em] at (0,0) {\huge{$S$}};
+%       \draw [thick, blue, fill=cyan] (0.6,1)   to [out=0,in=108] 
+% 				      (1.2,0.6) to [out=288,in=36] 
+% 				      (1.4,0)   to [out=216,in=324] 
+% 				      (0.3,0)   to [out=144,in=288] 
+% 				      (0,0.6)   to [out=108,in=180]
+% 				      (0.6,1);
+%       \node [below, blue] at (0.6,0.75) {\huge{$S$}};
+      \draw[fill, blue] (-1.2,0.2) circle [radius=0.025];
+      \draw[fill, blue] (0.9,0.5) circle [radius=0.025];
+      \draw[fill, blue] (0.8,0.1) circle [radius=0.025];
+      \draw[fill, blue] (0.1,0.75) circle [radius=0.025];
+      \draw[fill, blue] (0.2,0.3) circle [radius=0.025];
+      \draw[fill, blue] (-0.9,0.5) circle [radius=0.025];
+      \draw[fill, blue] (-0.8,0.1) circle [radius=0.025];
+      \draw[fill, blue] (-0.6,-0.6) circle [radius=0.025];
+      \draw[fill, blue] (-0.9,-0.5) circle [radius=0.025];
+      \draw[fill, blue] (-0.8,-0.1) circle [radius=0.025];
+      \draw[fill, blue] (-0.1,-0.5) circle [radius=0.025];
+      \draw[fill, blue] (-0.2,0.3) circle [radius=0.025];
+      \draw[fill, blue] (1.1,0.2) circle [radius=0.025];
+      
+      \node[cylinder,thick, blue, fill=cyan, draw,rotate=90,shape aspect=.5,minimum height=1cm,minimum width=0.5cm] at (-2,-1.95) {$1$};
+      \node[cylinder,thick, blue, fill=cyan, draw,rotate=90,shape aspect=.5,minimum height=1cm,minimum width=0.5cm] at (-1.45,-1.95) {$2$};
+      \node[cylinder,thick, blue, fill=cyan, draw,rotate=90,shape aspect=.5,minimum height=1cm,minimum width=0.5cm] at (-0.9,-1.95) {$3$};
+      \node[cylinder,thick, blue, fill=cyan, draw,rotate=90,shape aspect=.5,minimum height=1cm,minimum width=0.5cm] at (0.55,-1.95) {$h(x)$};
+      \node[cylinder,thick, blue, fill=cyan, draw,rotate=90,shape aspect=.5,minimum height=1cm,minimum width=0.5cm] at (2,-1.95) {$R$};
+      
+      \node[above, blue] at (-0.15,-2) {\Huge{$\dots$}};
+      \node[above, blue] at (1.325,-2) {\Huge{$\dots$}};
+      
+      \draw[fill] (0.75,-0.3) circle [radius=0.025];
+      \node[below] at (0.75,-0.3) {$x$};
+      \draw[->,thick] (0.75,-0.3) to [out=340,in=90] (0.55,-1.5);
+      \end{tikzpicture}
+    \end{center}
   }
 
   \frame{
