@@ -4,7 +4,7 @@
 \usepackage{tikz}
 \usepackage{xfrac}
 
-\usetikzlibrary{shapes,shapes.geometric}
+\usetikzlibrary{shapes,shapes.geometric,shapes.multipart}
 \usetheme{Boadilla}
 \usefonttheme{structuresmallcapsserif}
 \usecolortheme{rose}
@@ -270,6 +270,59 @@
       \draw[fill] (0.75,-0.3) circle [radius=0.025];
       \node[below] at (0.75,-0.3) {$x$};
       \draw[->,thick] (0.75,-0.3) to [out=340,in=90] (0.55,-1.5);
+      \end{tikzpicture}
+    \end{center}
+  }  
+  
+  \frame{
+    \begin{center}
+      \textsc{\huge{Convolution 3SUM}}
+    \end{center}
+%     \setlength{\leftmargini}{30pt}
+%     \begin{enumerate}
+%       \item[\emph{input:}] an Array $SA[1..n]$ of $n$ integers
+%       \item[\emph{output:}] find 2 indexes $i\ne{j}$ such that $A[i]+A[j]=A[i+j]$
+%     \end{enumerate} 
+%     \begin{thm}[10]
+%       If 3SUM requires $\Omega(\sfrac{n^2}{f(n)})$ expected time, convolution-3SUM requires $\Omega(\sfrac{n^2}{f^2(n\cdot{f(n)})})$ expected time.
+%     \end{thm}
+    \begin{center}
+      \begin{tikzpicture}
+      \node[cylinder,thick, blue, fill=cyan, draw,rotate=90,shape aspect=1,minimum height=4cm,minimum width=1cm] at (-4,0) {}; \node[below, blue] at (-4,-2) {$1$};
+      \node[cylinder,thick, blue, fill=cyan, draw,rotate=90,shape aspect=1,minimum height=4cm,minimum width=1cm] at (-2.9,0) {}; \node[below, blue] at (-2.9,-2) {$2$};
+      \node[cylinder,thick, blue, fill=cyan, draw,rotate=90,shape aspect=1,minimum height=4cm,minimum width=1cm] at (-1.8,0) {}; \node[below, blue] at (-1.8,-2) {$3$};
+      \node[cylinder,thick, blue, fill=cyan, draw,rotate=90,shape aspect=1,minimum height=4cm,minimum width=1cm] at (1.1,0) {}; \node[below, blue] at (1.1,-2) {$t$};
+      \node[cylinder,thick, blue, fill=cyan, draw,rotate=90,shape aspect=1,minimum height=4cm,minimum width=1cm] at (4,0) {}; \node[below, blue] at (4,-2) {$R$};
+      
+      \node[above, blue] at (-0.3,0) {\Huge{$\dots$}};
+      \node[above, blue] at (2.65,0) {\Huge{$\dots$}};
+      
+      \node[rectangle split, blue, fill=lime, draw,rectangle split parts=9] at (1.1,0) {
+	$\sfrac{3n}{R}$ 
+	\nodepart{two} \dots 
+	\nodepart{three} $k$    
+	\nodepart{four} \dots  
+	\nodepart{five} $j$  
+	\nodepart{six} \dots  
+	\nodepart{seven} $i$   
+	\nodepart{eight} \dots 
+	\nodepart{nine} 1
+      };
+      
+      \node[rectangle split, blue, fill=cyan, draw,rectangle split horizontal,rectangle split parts=5,text height=0.4cm,text width=1.6cm,rectangle split empty part width=1.5cm,align=center] at (0,-3.2) {
+      \nodepart{one} 1
+      \nodepart{two} \Huge{\dots}
+      \nodepart{four} \Huge{\dots}
+      \nodepart{five} $O(R)$
+      };
+      
+      \node[rectangle split, blue, fill=lime, draw,rectangle split horizontal,rectangle split parts=5,text height=0.2cm,text width=0.1cm,align=center] at (0,-3.2) {};
+      \draw[->,thick] (0.95,-0.75) to [out=180,in=90] (-0.675,-3.2);
+      \draw[->,thick] (1.25,-0.1) to [out=0,in=60] (2,-2) to [out=240,in=90] (0,-3.2);
+      \draw[->,thick] (1.25,0.6) to [out=0,in=60] (2.1,-2.2) to [out=240,in=90] (0.325,-3.2);
+      
+      \node[above//below] at (0.666,-3.2) {\tiny{$...$}};
+      \node[above//below] at (-0.366,-3.2) {\footnotesize{$M$}};
       \end{tikzpicture}
     \end{center}
   }
