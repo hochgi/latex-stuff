@@ -310,7 +310,7 @@
       };
       
       \node[rectangle split, blue, fill=cyan, draw,rectangle split horizontal,rectangle split parts=5,text height=0.4cm,text width=1.6cm,rectangle split empty part width=1.5cm,align=center] at (0,-3.2) {
-      \nodepart{one} 1
+      \nodepart{one} $1$
       \nodepart{two} \Huge{\dots}
       \nodepart{four} \Huge{\dots}
       \nodepart{five} $O(R)$
@@ -342,5 +342,51 @@
       \end{itemize}
 
     \end{lem}
+  }  
+  
+  \frame{
+    \begin{center}
+      \textsc{\huge{Hardness of Reporting Triangles}}
+    \end{center}
+%     \begin{lem}[11]
+%       Assume Convolution-3SUM requires $\Omega(\sfrac{n^2}{f(n)})$ expected time, and let $R$ be:
+%       $$\omega(\sqrt{n\cdot{f(n)}})<R<o(\sfrac{n}{f(n)})$$.
+%       Then, $\Omega(\sfrac{n^2}{f(n)})$ expected time is needed to report $O(\sfrac{n^2}{R})$ triangles in a tripartite graph where:
+%       \begin{itemize}
+%        \item the three parts are $A,B,C$, of sizes $|A|=|B|=R\sqrt{n}$ and $|C|=n$;
+%        \item each vertex in $A\cup{B}$ has $O(\sfrac{n}{R})$ neighbors in $C$;
+%        \item there are $O(nR)$ edges in $A\times{B}$.
+%       \end{itemize}
+%     \end{lem}
+    \begin{center}
+      \begin{tikzpicture}
+       \node[rectangle split, blue, fill=cyan, draw,rectangle split horizontal,rectangle split parts=5,text height=0.5cm,align=center] at (0,0.4) {
+	\nodepart[text width=2.5cm]{one} 
+	\nodepart[text width=0.5cm]{two} $\alpha$
+	\nodepart[text width=2.5cm]{three} 
+	\nodepart[text width=0.5cm]{four} $\beta$
+	\nodepart[text width=2.5cm]{five} 
+       };
+       \node[below, blue] at (-4.5,0) {$1$};
+       \node[below, blue] at (-1.75,0) {$i$};
+       \node[below, blue] at (1.75,0) {$j$};
+       \node[below, blue] at (4.5,0) {$n$};
+       
+       \node[cylinder,thick, blue, fill=cyan, draw,rotate=90,shape aspect=1,minimum height=1cm,minimum width=1cm] at (-4,-2) {}; \node[below, blue] at (-4,-2.5) {$1$};
+       \node[cylinder,thick, blue, fill=cyan, draw,rotate=90,shape aspect=1,minimum height=1cm,minimum width=1cm] at (-2.9,-2) {}; \node[below, blue] at (-2.9,-2.5) {$2$};
+       \node[cylinder,thick, blue, fill=cyan, draw,rotate=90,shape aspect=1,minimum height=1cm,minimum width=1cm] at (-1.8,-2) {}; \node[below, blue] at (-1.8,-2.5) {$3$};
+       \node[cylinder,thick, blue, fill=cyan, draw,rotate=90,shape aspect=1,minimum height=1cm,minimum width=1cm] at (1.1,-2) {}; \node[below, blue] at (1.1,-2.5) {$h(\alpha)=h(\beta)$};
+       \node[cylinder,thick, blue, fill=cyan, draw,rotate=90,shape aspect=1,minimum height=1cm,minimum width=1cm] at (4,-2) {}; \node[below, blue] at (4,-2.5) {$R$};
+       \node[below, blue] at (2.65,-2) {\Huge{$\dots$}};
+       \node[below, blue] at (-0.275,-2) {\Huge{$\dots$}};
+       
+       \draw[->,thick] (-1.75,-0.45) to [out=270,in=90] (1,-1.55);
+       \draw[->,thick] (1.75,-0.45) to [out=270,in=90] (1.2,-1.55);
+       
+       \node[circle, thick, blue, fill=lime, draw, diameter=1cm] at (0.875,-1.875) {\tiny{$i$}};
+       \node[circle, thick, blue, fill=lime, draw, diameter=1cm] at (1.325,-2.125) {\tiny{$j$}};
+      \end{tikzpicture}
+    \end{center}
   }
+  
 \end{document}
