@@ -453,9 +453,9 @@
        \node[cylinder,thick, blue, fill=cyan, draw,rotate=90,shape aspect=.5,minimum height=1.25cm,minimum width=0.5cm] at (-4.5,-2.5) {$0$};
        \node[cylinder,thick, blue, fill=cyan, draw,rotate=90,shape aspect=.5,minimum height=1.25cm,minimum width=0.5cm] at (-3.95,-2.5) {$1$};
        \node[above//below,blue] at (-3.375,-2.5) {\large{$\dots$}};
-       \node[cylinder,thick, blue, fill=cyan, draw,rotate=90,shape aspect=.5,minimum height=1.25cm,minimum width=0.5cm] at (-2.85,-2.5) {$x_1$};
+       \node[cylinder,thick, blue, fill=cyan, draw,rotate=90,shape aspect=.5,minimum height=1.25cm,minimum width=0.5cm] at (-2.85,-2.5) {$x_2$};
        \node[above//below,blue] at (-2.275,-2.5) {\large{$\dots$}};
-       \node[cylinder,thick, blue, fill=cyan, draw,rotate=90,shape aspect=.5,minimum height=1.25cm,minimum width=0.5cm] at (-1.75,-2.5) {$x_2$};
+       \node[cylinder,thick, blue, fill=cyan, draw,rotate=90,shape aspect=.5,minimum height=1.25cm,minimum width=0.5cm] at (-1.75,-2.5) {$x_1$};
        \node[above//below,blue] at (-1.175,-2.5) {\large{$\dots$}};
        \node[cylinder,thick, blue, fill=cyan, draw,rotate=90,shape aspect=.5,minimum height=1.25cm,minimum width=0.5cm] at (-0.65,-2.5) {$R-1$};
        
@@ -493,13 +493,13 @@
       
        \node[circle, thick, blue, fill=lime, draw] at (2.85,-1.5) {\footnotesize{$(x_1,i_1)$}};
        \draw[-,thick] (-1.5,0) to [out=270,in=90] (-1.5,-0.1) to [out=270,in=90] (-4.1,-0.55) to [out=270,in=180] (-3.8,-0.75);   
-       \draw[->,thick] (-2.85,-1.75) to [out=90,in=270](-4.1,-1) to [out=90,in=180] (-3.8,-0.75); 
+       \draw[->,thick] (-1.75,-1.75) to [out=90,in=270](-4.1,-1) to [out=90,in=180] (-3.8,-0.75); 
        \node[above//below, blue] at (-0.9,-0.75) {$\{j_1-i_1,\dots,j_{\sfrac{cn}{R}}-i_1\}=\{{j'}_1,{j'}_2,{j'}_3,{j'}_4,\dots\}$};
        \draw[->,thick] (2,-0.75) to [out=0,in=90] (2.85,-1.25); 
        
        \node[circle, thick, blue, fill=lime, draw] at (0.925,-5.5) {\footnotesize{$(x_2,i_2)$}};
        \draw[->,thick] (-1.6,0) to [out=270,in=0] (-3.6,-0.05) to [out=180,in=180] (-4,-4);  
-       \draw[-,thick] (-1.75,-3.25) to [out=270,in=0](-2.5,-3.625) to [out=180,in=90] (-4.5,-3.5) to [out=270,in=180] (-4,-4);  
+       \draw[-,thick] (-2.85,-3.1) to [out=270,in=0](-3.25,-3.625) to [out=180,in=90] (-4.5,-3.5) to [out=270,in=180] (-4,-4);  
        \node[above, blue] at (-1.65,-4.275) {$\{k_1+i_2\cdot{\sqrt{n}},\dots,k_{\sfrac{c'n}{R}}+i_2\cdot{\sqrt{n}}\}=$};
        \node[below, blue] at (-2.55,-4.2) {$\{{k'}_1,{k'}_2,{k'}_3,{k'}_4,\dots\}$};
        \draw[->,thick] (-1.1,-4.45) to [out=0,in=90] (0.925,-5.25); 
