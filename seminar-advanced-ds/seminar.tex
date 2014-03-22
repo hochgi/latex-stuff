@@ -3,6 +3,7 @@
 
 \usepackage{tikz}
 \usepackage{xfrac}
+\usepackage{mathtools}
 
 \usetikzlibrary{shapes,shapes.geometric,shapes.multipart}
 \usetheme{Boadilla}
@@ -25,7 +26,8 @@
 \newtheorem{algorithm}[thm]{Algorithm}            
 \newtheorem{conjecture}[thm]{Conjecture}           
 
-
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
 
 \begin{document}
   \frame{
@@ -383,8 +385,8 @@
        \draw[->,thick] (-1.75,-0.45) to [out=270,in=90] (1,-1.55);
        \draw[->,thick] (1.75,-0.45) to [out=270,in=90] (1.2,-1.55);
        
-       \node[circle, thick, blue, fill=lime, draw, diameter=1cm] at (0.875,-1.875) {\tiny{$i$}};
-       \node[circle, thick, blue, fill=lime, draw, diameter=1cm] at (1.325,-2.125) {\tiny{$j$}};
+       \node[circle, thick, blue, fill=lime, draw] at (0.875,-1.875) {\tiny{$i$}};
+       \node[circle, thick, blue, fill=lime, draw] at (1.325,-2.125) {\tiny{$j$}};
       \end{tikzpicture}
     \end{center}
   }
@@ -427,4 +429,83 @@
       \end{tikzpicture}
     \end{center}
   }
+  
+  \frame{
+    \begin{center}
+      \textsc{\huge{Hardness of Reporting Triangles}}
+    \end{center}
+    \begin{center}
+      \begin{tikzpicture}
+       \node[rectangle split, blue, fill=cyan, draw,rectangle split horizontal,rectangle split parts=5,text height=0.5cm,align=center] at (0,0.4) {
+	\nodepart[text width=0.5cm]{one} 
+	\nodepart[text width=2cm]{two} 
+	\nodepart[text width=0.5cm]{three} 
+	\nodepart[text width=5.1cm]{four} 
+	\nodepart[text width=0.5cm]{five} 
+       };
+       \node[above//below, blue] at (-4.5,0.35) {$1$};
+       \node[above//below, blue] at (-1.55,0.35) {$i$};
+       \node[above//below, blue] at (4.5,0.35) {$n$};  
+       
+       
+       \node[above//below, blue] at (-1.55,1) {$i_1=i (mod \sqrt{n}),i_2=\floor{\frac{i}{\sqrt{n}}}$};
+       
+       \node[cylinder,thick, blue, fill=cyan, draw,rotate=90,shape aspect=.5,minimum height=1.25cm,minimum width=0.5cm] at (-4.5,-2.5) {$0$};
+       \node[cylinder,thick, blue, fill=cyan, draw,rotate=90,shape aspect=.5,minimum height=1.25cm,minimum width=0.5cm] at (-3.95,-2.5) {$1$};
+       \node[above//below,blue] at (-3.375,-2.5) {\large{$\dots$}};
+       \node[cylinder,thick, blue, fill=cyan, draw,rotate=90,shape aspect=.5,minimum height=1.25cm,minimum width=0.5cm] at (-2.85,-2.5) {$x_1$};
+       \node[above//below,blue] at (-2.275,-2.5) {\large{$\dots$}};
+       \node[cylinder,thick, blue, fill=cyan, draw,rotate=90,shape aspect=.5,minimum height=1.25cm,minimum width=0.5cm] at (-1.75,-2.5) {$x_2$};
+       \node[above//below,blue] at (-1.175,-2.5) {\large{$\dots$}};
+       \node[cylinder,thick, blue, fill=cyan, draw,rotate=90,shape aspect=.5,minimum height=1.25cm,minimum width=0.5cm] at (-0.65,-2.5) {$R-1$};
+       
+       \node [cloud, thick, blue, fill=cyan, draw,cloud puffs=10,cloud puff arc=120, aspect=2, inner ysep=1em] at (3.5,-1.5) {\huge{$A$}};
+       \node [cloud, thick, blue, fill=cyan, draw,cloud puffs=10,cloud puff arc=120, aspect=2, inner ysep=1em] at (0.25,-5.5) {\huge{$B$}};
+       \node [cloud, thick, blue, fill=cyan, draw,cloud puffs=10,cloud puff arc=120, aspect=2, inner ysep=1em] at (3.75,-4.5) {\huge{$C$}};
+       
+       
+       \draw[-,very thick, red] (3.3,-4.5) to [out=90,in=270](2.85,-1.75);
+       
+       \foreach [count=\i] \p in {(2.9,-4.3),(3.3,-4.5),(3.7,-3.9),(4.1,-4.1)}{
+         \draw[-] \p  to [out=90,in=270](2.85,-1.75);
+         \draw[fill, blue] \p circle [radius=0.04];
+         \draw[fill, lime] \p circle [radius=0.025];
+         \node[below, blue] at \p {\tiny{${j'_\i}$}};
+       }
+       
+       \node[rectangle,cyan,fill=cyan, draw, minimum height=0.4cm,minimum width=0.4cm] at (3.3,-4.8) {}; %hide j'_2
+       
+       \foreach [count=\i] \p in {(4.3,-4.85),(4.7,-4.75),(3.9,-5.15)}{
+         \draw[-] \p  to [out=270,in=0] (1.175,-5.5);
+         \draw[fill, blue] \p circle [radius=0.04];
+         \draw[fill, lime] \p circle [radius=0.025];
+         \node[above, blue] at \p {\tiny{${k'_\i}$}};
+       }
+       
+       \draw[-,very thick, red] (2.85,-1.5) to [out=180,in=0] (0.925,-5.5);
+       \draw[-] (2.85,-1.5) to [out=180,in=0] (0.925,-5.5);
+       
+       \draw[-,very thick, red] (3.3,-4.5) to [out=210,in=0] (1.175,-5.5);
+       \draw[-] (3.3,-4.5) to [out=210,in=0] (1.175,-5.5);
+       \draw[fill, blue] (3.3,-4.5) circle [radius=0.04];
+       \draw[fill, lime] (3.3,-4.5) circle [radius=0.025];
+       \node[below, blue] at (3.325,-4.55) {\tiny{$j'_2=k'_4$}};
+      
+       \node[circle, thick, blue, fill=lime, draw] at (2.85,-1.5) {\footnotesize{$(x_1,i_1)$}};
+       \draw[-,thick] (-1.5,0) to [out=270,in=90] (-1.5,-0.1) to [out=270,in=90] (-4.1,-0.55) to [out=270,in=180] (-3.8,-0.75);   
+       \draw[->,thick] (-2.85,-1.75) to [out=90,in=270](-4.1,-1) to [out=90,in=180] (-3.8,-0.75); 
+       \node[above//below, blue] at (-0.9,-0.75) {$\{j_1-i_1,\dots,j_{\sfrac{cn}{R}}-i_1\}=\{{j'}_1,{j'}_2,{j'}_3,{j'}_4,\dots\}$};
+       \draw[->,thick] (2,-0.75) to [out=0,in=90] (2.85,-1.25); 
+       
+       \node[circle, thick, blue, fill=lime, draw] at (0.925,-5.5) {\footnotesize{$(x_2,i_2)$}};
+       \draw[->,thick] (-1.6,0) to [out=270,in=0] (-3.6,-0.05) to [out=180,in=180] (-4,-4);  
+       \draw[-,thick] (-1.75,-3.25) to [out=270,in=0](-2.5,-3.625) to [out=180,in=90] (-4.5,-3.5) to [out=270,in=180] (-4,-4);  
+       \node[above, blue] at (-1.65,-4.275) {$\{k_1+i_2\cdot{\sqrt{n}},\dots,k_{\sfrac{c'n}{R}}+i_2\cdot{\sqrt{n}}\}=$};
+       \node[below, blue] at (-2.55,-4.2) {$\{{k'}_1,{k'}_2,{k'}_3,{k'}_4,\dots\}$};
+       \draw[->,thick] (-1.1,-4.45) to [out=0,in=90] (0.925,-5.25); 
+
+      \end{tikzpicture}
+    \end{center}
+  }
+  
 \end{document}
