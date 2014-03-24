@@ -526,7 +526,7 @@
        \foreach [count=\i] \p in {(-1.75,-5.25)}{
          \draw[fill, blue] \p circle [radius=0.04];
          \draw[fill, lime] \p circle [radius=0.025];
-         \node[above, blue] at \p {${t}$};
+         \node[above, blue] at \p {${u_j}$};
        } 
        
        \foreach [count=\i] \p in {(1.5,-5.1),(1.667,-4.8),(2,-4.5),(2.5,-5.8),(2.5,-4.8),(3,-4.2),(2.75,-5.2),(3.5,-3.95),(4,-4.1)}{
@@ -574,7 +574,7 @@
        \foreach [count=\i] \p in {(-1.75,-5.25)}{
          \draw[fill, blue] \p circle [radius=0.04];
          \draw[fill, lime] \p circle [radius=0.025];
-         \node[above, blue] at \p {${t}$};
+         \node[above, blue] at \p {${u_j}$};
        } 
        
        \foreach [count=\i] \p in {(1.5,-5.1),(1.667,-4.8),(2,-4.5),(2.5,-5.8),(2.5,-4.8),(3,-4.2),(2.75,-5.2),(3.5,-3.95),(4,-4.1)}{
@@ -624,7 +624,7 @@
        \foreach [count=\i] \p in {(-1.75,-5.25)}{
          \draw[fill, blue] \p circle [radius=0.04];
          \draw[fill, lime] \p circle [radius=0.025];
-         \node[above, blue] at \p {${t}$};
+         \node[above, blue] at \p {${u_j}$};
        } 
        
        \foreach [count=\i] \p in {(1.5,-5.1),(1.667,-4.8),(2,-4.5),(2.5,-5.8),(2.5,-4.8),(3,-4.2),(2.75,-5.2),(3.5,-3.95),(4,-4.1)}{
@@ -675,7 +675,7 @@
        \foreach [count=\i] \p in {(-1.75,-5.25)}{
          \draw[fill, blue] \p circle [radius=0.04];
          \draw[fill, lime] \p circle [radius=0.025];
-         \node[above, blue] at \p {${t}$};
+         \node[above, blue] at \p {${u_j}$};
        } 
        
        \foreach [count=\i] \p in {(1.5,-5.1),(1.667,-4.8),(2,-4.5),(2.5,-5.8),(2.5,-4.8),(3,-4.2),(2.75,-5.2),(3.5,-3.95),(4,-4.1)}{
@@ -693,6 +693,7 @@
        \node[above//below, blue] at (-5,1) {$S_1=\{2,6,8\}$};
        \node[above//below, blue] at (-5,0.5) {$S_2=\{2,3,9\}$};
        \node[above//below, blue] at (-4.85,0) {$S_3=\{3,5,8,9\}$};
+       \node[above//below, blue] at (-5,-0.5) {$\dots$};
       \end{tikzpicture}
     \end{center}
   }
@@ -727,7 +728,7 @@
        \foreach [count=\i] \p in {(-1.75,-5.25)}{
          \draw[fill, blue] \p circle [radius=0.04];
          \draw[fill, lime] \p circle [radius=0.025];
-         \node[above, blue] at \p {${t}$};
+         \node[above, blue] at \p {${u_j}$};
        } 
        
        \foreach [count=\i] \p in {(1.5,-5.1),(1.667,-4.8),(2,-4.5),(2.5,-5.8),(2.5,-4.8),(3,-4.2),(2.75,-5.2),(3.5,-3.95),(4,-4.1)}{
@@ -745,7 +746,9 @@
        \node[above//below, blue] at (-5,1) {$S_1=\{2,6,8\}$};
        \node[above//below, blue] at (-5,0.5) {$S_2=\{2,3,9\}$};
        \node[above//below, blue] at (-4.85,0) {$S_3=\{3,5,8,9\}$};
-       \node[above//below, blue] at (-4.825,-0.5) {$T=\{1,4,5,7\}$};
+       \node[above//below, blue] at (-5,-0.5) {$\dots$};
+       \node[above//below, blue] at (-4.85,-1) {$T_j=\{1,4,5,7\}$};
+       \node[above//below, blue] at (-5,-1.5) {$\dots$};
       \end{tikzpicture}
     \end{center}
   }
@@ -776,13 +779,13 @@
          \draw[-] \p  to [out=225,in=330] (-1.75,-5.25);
        }
       
-       \draw[-, very thick, red] (-1.75,-5.25) to [out=120,in=240] (-2,-1) to [out=60,in=120] (1.9,-0.35);
-       \draw[-] (-1.75,-5.25) to [out=120,in=240] (-2,-1) to [out=60,in=120] (1.9,-0.35);
+       \draw[-, very thick, red] (-1.75,-5.25) to [out=150,in=240] (-2.25,-1) to [out=60,in=120] (1.9,-0.35);
+       \draw[-] (-1.75,-5.25) to [out=150,in=240] (-2.25,-1) to [out=60,in=120] (1.9,-0.35);
        
        \foreach [count=\i] \p in {(-1.75,-5.25)}{
          \draw[fill, blue] \p circle [radius=0.04];
          \draw[fill, lime] \p circle [radius=0.025];
-         \node[above, blue] at \p {${t}$};
+         \node[above, blue] at \p {${u_j}$};
        } 
        
        \foreach [count=\i] \p in {(1.5,-5.1),(1.667,-4.8),(2,-4.5),(2.5,-5.8),(2.5,-4.8),(3,-4.2),(2.75,-5.2),(3.5,-3.95),(4,-4.1)}{
@@ -800,8 +803,10 @@
        \node[above//below, blue] at (-5,1) {$S_1=\{2,6,8\}$};
        \node[above//below, blue] at (-5,0.5) {$S_2=\{2,3,9\}$};
        \node[above//below, blue] at (-4.85,0) {$S_3=\{3,5,8,9\}$};
-       \node[above//below, blue] at (-4.825,-0.5) {$T=\{1,4,5,7\}$};
-       \node[above//below, blue] at (-5.325,-1) {$i=3$};
+       \node[above//below, blue] at (-5,-0.5) {$\dots$};
+       \node[above//below, blue] at (-4.85,-1) {$T_j=\{1,4,5,7\}$};
+       \node[above//below, blue] at (-5,-1.5) {$\dots$};
+       \node[above//below, blue] at (-5.325,-2) {$i=3$};
       \end{tikzpicture}
     \end{center}
   }
