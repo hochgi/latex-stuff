@@ -10,7 +10,9 @@
 \usefonttheme{structuresmallcapsserif}
 \usecolortheme{rose}
 
-\author{Gilad Hoch}
+\author[Gilad Hoch]{\textsc{{by an article of Mihai P\v{a}tra\c{s}cu}}}
+\title{Towards Polynomial Lower Bounds for Dynamic Problems}
+
 \date{25.3.2014}
 
 \theoremstyle{plain}
@@ -30,20 +32,7 @@
 \DeclarePairedDelimiter\ceil{\lceil}{\rceil}
 
 \begin{document}
-  \frame{
-    \begin{center}
-      \textsc{\Huge{Towards Polynomial Lower Bounds for Dynamic Problems}}
-    \end{center}
-%    \maketitle
-%    \begin{enumerate}
-%      \item presenting a few dynamic problems
-%      \item defining the multiphase problem
-%      \item conjecture 1. the multiphase conjecture
-%      \item implications of the multiphase conecture
-%      \item the $3SUM$ problem
-%      \item ...
-%    \end{enumerate}
-  }
+  \frame{\maketitle}
 
   \frame{
     \begin{itemize}
@@ -508,4 +497,377 @@
     \end{center}
   }
   
+  \frame{
+    \begin{center}
+      \textsc{\huge{Reduction to the Multiphase Problem}}
+    \end{center}
+    \begin{center}
+      \begin{tikzpicture}
+       \node [cloud, thick, blue, fill=cyan, draw,cloud puffs=10,cloud puff arc=120, aspect=2, inner ysep=2em] at (0,0) {\huge{$A$}};
+       \node [cloud, thick, blue, fill=cyan, draw,cloud puffs=10,cloud puff arc=120, aspect=2, inner ysep=2em] at (-3.5,-5) {\huge{$B$}};
+       \node [cloud, thick, blue, fill=cyan, draw,cloud puffs=10,cloud puff arc=120, aspect=2, inner ysep=2em] at (3.5,-5) {\huge{$C$}};
+       
+       \foreach \p in {(1.667,-4.8),(3,-4.2),(3.5,-3.95)}{
+         \draw[-] \p  to [out=110,in=270] (0.1,-1.2);
+       }
+       
+       \foreach \p in {(1.667,-4.8),(2,-4.5),(4,-4.1)}{
+         \draw[-] \p  to [out=100,in=280] (1.33,-0.85);
+       }
+       
+       \foreach \p in {(2,-4.5),(2.5,-4.8),(3.5,-3.95),(4,-4.1)}{
+         \draw[-] \p  to [out=90,in=290] (1.9,-0.35);
+       }
+       
+       \foreach \p in {(1.5,-5.1),(2.5,-4.8),(2.5,-5.8),(2.75,-5.2)}{
+         \draw[-] \p  to [out=225,in=330] (-1.75,-5.25);
+       }
+       
+       \foreach [count=\i] \p in {(-1.75,-5.25)}{
+         \draw[fill, blue] \p circle [radius=0.04];
+         \draw[fill, lime] \p circle [radius=0.025];
+         \node[above, blue] at \p {${u_j}$};
+       } 
+       
+       \foreach [count=\i] \p in {(1.5,-5.1),(1.667,-4.8),(2,-4.5),(2.5,-5.8),(2.5,-4.8),(3,-4.2),(2.75,-5.2),(3.5,-3.95),(4,-4.1)}{
+         \draw[fill, blue] \p circle [radius=0.04];
+         \draw[fill, lime] \p circle [radius=0.025];
+         \node[below, blue] at \p {${\i}$};
+       } 
+       
+       \foreach [count=\i] \p in {(0.1,-1.2),(1.33,-0.85),(1.9,-0.35)}{
+         \draw[fill, blue] \p circle [radius=0.04];
+         \draw[fill, lime] \p circle [radius=0.025];
+         \node[above, blue] at \p {${\i}$};
+       } 
+      \end{tikzpicture}
+    \end{center}
+  }
+  
+    \frame{
+    \begin{center}
+      \textsc{\huge{Reduction to the Multiphase Problem}}
+    \end{center}
+    \begin{center}
+      \begin{tikzpicture}
+       \node [cloud, thick, blue, fill=cyan, draw,cloud puffs=10,cloud puff arc=120, aspect=2, inner ysep=2em] at (0,0) {\huge{$A$}};
+       \node [cloud, thick, blue, fill=cyan, draw,cloud puffs=10,cloud puff arc=120, aspect=2, inner ysep=2em] at (-3.5,-5) {\huge{$B$}};
+       \node [cloud, thick, blue, fill=cyan, draw,cloud puffs=10,cloud puff arc=120, aspect=2, inner ysep=2em] at (3.5,-5) {\huge{$C$}};
+       
+       \foreach \p in {(1.667,-4.8),(3,-4.2),(3.5,-3.95)}{
+         \draw[-, very thick, red] \p  to [out=110,in=270] (0.1,-1.2);
+         \draw[-] \p  to [out=110,in=270] (0.1,-1.2);
+       }
+       
+       \foreach \p in {(1.667,-4.8),(2,-4.5),(4,-4.1)}{
+         \draw[-] \p  to [out=100,in=280] (1.33,-0.85);
+       }
+       
+       \foreach \p in {(2,-4.5),(2.5,-4.8),(3.5,-3.95),(4,-4.1)}{
+         \draw[-] \p  to [out=90,in=290] (1.9,-0.35);
+       }
+       
+       \foreach \p in {(1.5,-5.1),(2.5,-4.8),(2.5,-5.8),(2.75,-5.2)}{
+         \draw[-] \p  to [out=225,in=330] (-1.75,-5.25);
+       }
+       
+       \foreach [count=\i] \p in {(-1.75,-5.25)}{
+         \draw[fill, blue] \p circle [radius=0.04];
+         \draw[fill, lime] \p circle [radius=0.025];
+         \node[above, blue] at \p {${u_j}$};
+       } 
+       
+       \foreach [count=\i] \p in {(1.5,-5.1),(1.667,-4.8),(2,-4.5),(2.5,-5.8),(2.5,-4.8),(3,-4.2),(2.75,-5.2),(3.5,-3.95),(4,-4.1)}{
+         \draw[fill, blue] \p circle [radius=0.04];
+         \draw[fill, lime] \p circle [radius=0.025];
+         \node[below, blue] at \p {${\i}$};
+       } 
+       
+       \foreach [count=\i] \p in {(0.1,-1.2),(1.33,-0.85),(1.9,-0.35)}{
+         \draw[fill, blue] \p circle [radius=0.04];
+         \draw[fill, lime] \p circle [radius=0.025];
+         \node[above, blue] at \p {${\i}$};
+       } 
+       
+       \node[above//below, blue] at (-4.75,1) {$S_1=\{2,6,8\}$};
+      \end{tikzpicture}
+    \end{center}
+  }
+  
+    \frame{
+    \begin{center}
+      \textsc{\huge{Reduction to the Multiphase Problem}}
+    \end{center}
+    \begin{center}
+      \begin{tikzpicture}
+       \node [cloud, thick, blue, fill=cyan, draw,cloud puffs=10,cloud puff arc=120, aspect=2, inner ysep=2em] at (0,0) {\huge{$A$}};
+       \node [cloud, thick, blue, fill=cyan, draw,cloud puffs=10,cloud puff arc=120, aspect=2, inner ysep=2em] at (-3.5,-5) {\huge{$B$}};
+       \node [cloud, thick, blue, fill=cyan, draw,cloud puffs=10,cloud puff arc=120, aspect=2, inner ysep=2em] at (3.5,-5) {\huge{$C$}};
+       
+       \foreach \p in {(1.667,-4.8),(3,-4.2),(3.5,-3.95)}{
+         \draw[-] \p  to [out=110,in=270] (0.1,-1.2);
+       }
+       
+       \foreach \p in {(1.667,-4.8),(2,-4.5),(4,-4.1)}{
+         \draw[-, very thick, red] \p  to [out=100,in=280] (1.33,-0.85);
+         \draw[-] \p  to [out=100,in=280] (1.33,-0.85);
+       }
+       
+       \foreach \p in {(2,-4.5),(2.5,-4.8),(3.5,-3.95),(4,-4.1)}{
+         \draw[-] \p  to [out=90,in=290] (1.9,-0.35);
+       }
+       
+       \foreach \p in {(1.5,-5.1),(2.5,-4.8),(2.5,-5.8),(2.75,-5.2)}{
+         \draw[-] \p  to [out=225,in=330] (-1.75,-5.25);
+       }
+       
+       \foreach [count=\i] \p in {(-1.75,-5.25)}{
+         \draw[fill, blue] \p circle [radius=0.04];
+         \draw[fill, lime] \p circle [radius=0.025];
+         \node[above, blue] at \p {${u_j}$};
+       } 
+       
+       \foreach [count=\i] \p in {(1.5,-5.1),(1.667,-4.8),(2,-4.5),(2.5,-5.8),(2.5,-4.8),(3,-4.2),(2.75,-5.2),(3.5,-3.95),(4,-4.1)}{
+         \draw[fill, blue] \p circle [radius=0.04];
+         \draw[fill, lime] \p circle [radius=0.025];
+         \node[below, blue] at \p {${\i}$};
+       } 
+       
+       \foreach [count=\i] \p in {(0.1,-1.2),(1.33,-0.85),(1.9,-0.35)}{
+         \draw[fill, blue] \p circle [radius=0.04];
+         \draw[fill, lime] \p circle [radius=0.025];
+         \node[above, blue] at \p {${\i}$};
+       } 
+       
+       \node[above//below, blue] at (-4.75,1) {$S_1=\{2,6,8\}$};
+       \node[above//below, blue] at (-4.75,0.5) {$S_2=\{2,3,9\}$};
+      \end{tikzpicture}
+    \end{center}
+  }
+  
+  \frame{
+    \begin{center}
+      \textsc{\huge{Reduction to the Multiphase Problem}}
+    \end{center}
+    \begin{center}
+      \begin{tikzpicture}
+       \node [cloud, thick, blue, fill=cyan, draw,cloud puffs=10,cloud puff arc=120, aspect=2, inner ysep=2em] at (0,0) {\huge{$A$}};
+       \node [cloud, thick, blue, fill=cyan, draw,cloud puffs=10,cloud puff arc=120, aspect=2, inner ysep=2em] at (-3.5,-5) {\huge{$B$}};
+       \node [cloud, thick, blue, fill=cyan, draw,cloud puffs=10,cloud puff arc=120, aspect=2, inner ysep=2em] at (3.5,-5) {\huge{$C$}};
+       
+       \foreach \p in {(1.667,-4.8),(3,-4.2),(3.5,-3.95)}{
+         \draw[-] \p  to [out=110,in=270] (0.1,-1.2);
+       }
+       
+       \foreach \p in {(1.667,-4.8),(2,-4.5),(4,-4.1)}{
+         \draw[-] \p  to [out=100,in=280] (1.33,-0.85);
+       }
+       
+       \foreach \p in {(2,-4.5),(2.5,-4.8),(3.5,-3.95),(4,-4.1)}{
+         \draw[-, very thick, red] \p  to [out=90,in=290] (1.9,-0.35);
+         \draw[-] \p  to [out=90,in=290] (1.9,-0.35);
+       }
+       
+       \foreach \p in {(1.5,-5.1),(2.5,-4.8),(2.5,-5.8),(2.75,-5.2)}{
+         \draw[-] \p  to [out=225,in=330] (-1.75,-5.25);
+       }
+       
+       \foreach [count=\i] \p in {(-1.75,-5.25)}{
+         \draw[fill, blue] \p circle [radius=0.04];
+         \draw[fill, lime] \p circle [radius=0.025];
+         \node[above, blue] at \p {${u_j}$};
+       } 
+       
+       \foreach [count=\i] \p in {(1.5,-5.1),(1.667,-4.8),(2,-4.5),(2.5,-5.8),(2.5,-4.8),(3,-4.2),(2.75,-5.2),(3.5,-3.95),(4,-4.1)}{
+         \draw[fill, blue] \p circle [radius=0.04];
+         \draw[fill, lime] \p circle [radius=0.025];
+         \node[below, blue] at \p {${\i}$};
+       } 
+       
+       \foreach [count=\i] \p in {(0.1,-1.2),(1.33,-0.85),(1.9,-0.35)}{
+         \draw[fill, blue] \p circle [radius=0.04];
+         \draw[fill, lime] \p circle [radius=0.025];
+         \node[above, blue] at \p {${\i}$};
+       } 
+       
+       \node[above//below, blue] at (-4.75,1) {$S_1=\{2,6,8\}$};
+       \node[above//below, blue] at (-4.75,0.5) {$S_2=\{2,3,9\}$};
+       \node[above//below, blue] at (-4.6,0) {$S_3=\{3,5,8,9\}$};
+       \node[above//below, blue] at (-4.75,-0.5) {$\dots$};
+      \end{tikzpicture}
+    \end{center}
+  }
+  
+  \frame{
+    \begin{center}
+      \textsc{\huge{Reduction to the Multiphase Problem}}
+    \end{center}
+    \begin{center}
+      \begin{tikzpicture}
+       \node [cloud, thick, blue, fill=cyan, draw,cloud puffs=10,cloud puff arc=120, aspect=2, inner ysep=2em] at (0,0) {\huge{$A$}};
+       \node [cloud, thick, blue, fill=cyan, draw,cloud puffs=10,cloud puff arc=120, aspect=2, inner ysep=2em] at (-3.5,-5) {\huge{$B$}};
+       \node [cloud, thick, blue, fill=cyan, draw,cloud puffs=10,cloud puff arc=120, aspect=2, inner ysep=2em] at (3.5,-5) {\huge{$C$}};
+       
+       \foreach \p in {(1.667,-4.8),(3,-4.2),(3.5,-3.95)}{
+         \draw[-] \p  to [out=110,in=270] (0.1,-1.2);
+       }
+       
+       \foreach \p in {(1.667,-4.8),(2,-4.5),(4,-4.1)}{
+         \draw[-] \p  to [out=100,in=280] (1.33,-0.85);
+       }
+       
+       \foreach \p in {(2,-4.5),(2.5,-4.8),(3.5,-3.95),(4,-4.1)}{
+         \draw[-] \p  to [out=90,in=290] (1.9,-0.35);
+       }
+       
+       \foreach \p in {(1.5,-5.1),(2.5,-4.8),(2.5,-5.8),(2.75,-5.2)}{
+         \draw[-, very thick, red] \p  to [out=225,in=330] (-1.75,-5.25);
+         \draw[-] \p  to [out=225,in=330] (-1.75,-5.25);
+       }
+       
+       \foreach [count=\i] \p in {(-1.75,-5.25)}{
+         \draw[fill, blue] \p circle [radius=0.04];
+         \draw[fill, lime] \p circle [radius=0.025];
+         \node[above, blue] at \p {${u_j}$};
+       } 
+       
+       \foreach [count=\i] \p in {(1.5,-5.1),(1.667,-4.8),(2,-4.5),(2.5,-5.8),(2.5,-4.8),(3,-4.2),(2.75,-5.2),(3.5,-3.95),(4,-4.1)}{
+         \draw[fill, blue] \p circle [radius=0.04];
+         \draw[fill, lime] \p circle [radius=0.025];
+         \node[below, blue] at \p {${\i}$};
+       } 
+       
+       \foreach [count=\i] \p in {(0.1,-1.2),(1.33,-0.85),(1.9,-0.35)}{
+         \draw[fill, blue] \p circle [radius=0.04];
+         \draw[fill, lime] \p circle [radius=0.025];
+         \node[above, blue] at \p {${\i}$};
+       } 
+       
+       \node[above//below, blue] at (-4.75,1) {$S_1=\{2,6,8\}$};
+       \node[above//below, blue] at (-4.75,0.5) {$S_2=\{2,3,9\}$};
+       \node[above//below, blue] at (-4.6,0) {$S_3=\{3,5,8,9\}$};
+       \node[above//below, blue] at (-4.75,-0.5) {$\dots$};
+       \node[above//below, blue] at (-4.6,-1) {$T_j=\{1,4,5,7\}$};
+       \node[above//below, blue] at (-4.75,-1.5) {$\dots$};
+      \end{tikzpicture}
+    \end{center}
+  }
+  
+  \frame{
+    \begin{center}
+      \textsc{\huge{Reduction to the Multiphase Problem}}
+    \end{center}
+    \begin{center}
+      \begin{tikzpicture}
+       \node [cloud, thick, blue, fill=cyan, draw,cloud puffs=10,cloud puff arc=120, aspect=2, inner ysep=2em] at (0,0) {\huge{$A$}};
+       \node [cloud, thick, blue, fill=cyan, draw,cloud puffs=10,cloud puff arc=120, aspect=2, inner ysep=2em] at (-3.5,-5) {\huge{$B$}};
+       \node [cloud, thick, blue, fill=cyan, draw,cloud puffs=10,cloud puff arc=120, aspect=2, inner ysep=2em] at (3.5,-5) {\huge{$C$}};
+       
+       \foreach \p in {(1.667,-4.8),(3,-4.2),(3.5,-3.95)}{
+         \draw[-] \p  to [out=110,in=270] (0.1,-1.2);
+       }
+       
+       \foreach \p in {(1.667,-4.8),(2,-4.5),(4,-4.1)}{
+         \draw[-] \p  to [out=100,in=280] (1.33,-0.85);
+       }
+       
+       \foreach \p in {(2,-4.5),(2.5,-4.8),(3.5,-3.95),(4,-4.1)}{
+         \draw[-] \p  to [out=90,in=290] (1.9,-0.35);
+       }
+       
+       \foreach \p in {(1.5,-5.1),(2.5,-4.8),(2.5,-5.8),(2.75,-5.2)}{
+         \draw[-] \p  to [out=225,in=330] (-1.75,-5.25);
+       }
+      
+       \draw[-, very thick, red] (-1.75,-5.25) to [out=150,in=240] (-2.25,-1) to [out=60,in=120] (1.9,-0.35);
+       \draw[-] (-1.75,-5.25) to [out=150,in=240] (-2.25,-1) to [out=60,in=120] (1.9,-0.35);
+       
+       \foreach [count=\i] \p in {(-1.75,-5.25)}{
+         \draw[fill, blue] \p circle [radius=0.04];
+         \draw[fill, lime] \p circle [radius=0.025];
+         \node[above, blue] at \p {${u_j}$};
+       } 
+       
+       \foreach [count=\i] \p in {(1.5,-5.1),(1.667,-4.8),(2,-4.5),(2.5,-5.8),(2.5,-4.8),(3,-4.2),(2.75,-5.2),(3.5,-3.95),(4,-4.1)}{
+         \draw[fill, blue] \p circle [radius=0.04];
+         \draw[fill, lime] \p circle [radius=0.025];
+         \node[below, blue] at \p {${\i}$};
+       } 
+       
+       \foreach [count=\i] \p in {(0.1,-1.2),(1.33,-0.85),(1.9,-0.35)}{
+         \draw[fill, blue] \p circle [radius=0.04];
+         \draw[fill, lime] \p circle [radius=0.025];
+         \node[above, blue] at \p {${\i}$};
+       } 
+       
+       \node[above//below, blue] at (-4.75,1) {$S_1=\{2,6,8\}$};
+       \node[above//below, blue] at (-4.75,0.5) {$S_2=\{2,3,9\}$};
+       \node[above//below, blue] at (-4.6,0) {$S_3=\{3,5,8,9\}$};
+       \node[above//below, blue] at (-4.75,-0.5) {$\dots$};
+       \node[above//below, blue] at (-4.6,-1) {$T_j=\{1,4,5,7\}$};
+       \node[above//below, blue] at (-4.75,-1.5) {$\dots$};
+       \node[above//below, blue] at (-5.075,-2) {$i=3$};
+      \end{tikzpicture}
+    \end{center}
+  }
+  
+  \frame{
+    \begin{center}
+      \textsc{\huge{Reduction to the Multiphase Problem}}
+    \end{center}
+    \begin{center}
+      \begin{tikzpicture}
+       \node [cloud, thick, blue, fill=cyan, draw,cloud puffs=10,cloud puff arc=120, aspect=2, inner ysep=2em] at (0,0) {\huge{$A$}};
+       \node [cloud, thick, blue, fill=cyan, draw,cloud puffs=10,cloud puff arc=120, aspect=2, inner ysep=2em] at (-3.5,-5) {\huge{$B$}};
+       \node [cloud, thick, blue, fill=cyan, draw,cloud puffs=10,cloud puff arc=120, aspect=2, inner ysep=2em] at (3.5,-5) {\huge{$C$}};
+      
+       \draw[-, very thick, red] (-1.75,-5.25) to [out=150,in=240] (-2.25,-1) to [out=60,in=120] (1.9,-0.35);
+       \draw[-] (-1.75,-5.25) to [out=150,in=240] (-2.25,-1) to [out=60,in=120] (1.9,-0.35);
+       
+       \foreach \p in {(1.667,-4.8),(3,-4.2),(3.5,-3.95)}{
+         \draw[-] \p  to [out=110,in=270] (0.1,-1.2);
+       }
+       
+       \foreach \p in {(1.667,-4.8),(2,-4.5),(4,-4.1)}{
+         \draw[-] \p  to [out=100,in=280] (1.33,-0.85);
+       }
+       
+       \draw[-, very thick, red] (2.5,-4.8)  to [out=90,in=290] (1.9,-0.35);
+       \foreach \p in {(2,-4.5),(2.5,-4.8),(3.5,-3.95),(4,-4.1)}{
+         \draw[-] \p  to [out=90,in=290] (1.9,-0.35);
+       }
+       
+       \draw[-, very thick, red] (2.5,-4.8)  to [out=225,in=330] (-1.75,-5.25);
+       \foreach \p in {(1.5,-5.1),(2.5,-4.8),(2.5,-5.8),(2.75,-5.2)}{
+         \draw[-] \p  to [out=225,in=330] (-1.75,-5.25);
+       }
+       
+       \foreach [count=\i] \p in {(-1.75,-5.25)}{
+         \draw[fill, blue] \p circle [radius=0.04];
+         \draw[fill, lime] \p circle [radius=0.025];
+         \node[above, blue] at \p {${u_j}$};
+       } 
+       
+       \foreach [count=\i] \p in {(1.5,-5.1),(1.667,-4.8),(2,-4.5),(2.5,-5.8),(2.5,-4.8),(3,-4.2),(2.75,-5.2),(3.5,-3.95),(4,-4.1)}{
+         \draw[fill, blue] \p circle [radius=0.04];
+         \draw[fill, lime] \p circle [radius=0.025];
+         \node[below, blue] at \p {${\i}$};
+       } 
+       
+       \foreach [count=\i] \p in {(0.1,-1.2),(1.33,-0.85),(1.9,-0.35)}{
+         \draw[fill, blue] \p circle [radius=0.04];
+         \draw[fill, lime] \p circle [radius=0.025];
+         \node[above, blue] at \p {${\i}$};
+       } 
+       
+       \node[above//below, blue] at (-4.75,1) {$S_1=\{2,6,8\}$};
+       \node[above//below, blue] at (-4.75,0.5) {$S_2=\{2,3,9\}$};
+       \node[above//below, blue] at (-4.6,0) {$S_3=\{3,5,8,9\}$};
+       \node[above//below, blue] at (-4.75,-0.5) {$\dots$};
+       \node[above//below, blue] at (-4.6,-1) {$T_j=\{1,4,5,7\}$};
+       \node[above//below, blue] at (-4.75,-1.5) {$\dots$};
+       \node[above//below, blue] at (-5.075,-2) {$i=3$};
+      \end{tikzpicture}
+    \end{center}
+  }
 \end{document}
