@@ -4,6 +4,7 @@
 \usepackage{tikz}
 \usepackage{xfrac}
 \usepackage{mathtools}
+% \usepackage{anyfontsize}
 
 \usetikzlibrary{shapes,shapes.geometric,shapes.multipart}
 \usetheme{Boadilla}
@@ -148,29 +149,28 @@
     \end{thm}
   }    
   
-  \frame{
-    \begin{center}
-      \textsc{\huge{the 3SUM problem}}
-    \end{center}
-    \setlength{\leftmargini}{30pt}
-    \begin{enumerate}
-      \item[\emph{input:}] a set $S$ of $n$ numbers
-      \item[\emph{output:}] find distinct $x,y,z\in{S}$ such that $x+y=z$
-    \end{enumerate}   
-    
-    \begin{thm}[3]
-    Under the 3SUM conjecture, the multiphase problem with $k=\Theta(n^{2.5})$ requires $\tau\ge{n^{0.5-o(1)}}$ on the word RAM.
-    \end{thm}
-    
-    \begin{thm}[4]
-    In a weighted graph with $m$ edges, finding a triangle of prescribed weight in $O(m^{1.5-\epsilon})$ time is 3SUM-hard.
-    \end{thm}
-    
-    \begin{thm}[5]
-    In a graph with $m$ edges, reporting $m$ triangles in $O(m^{\sfrac{4}{3}-\epsilon})$ time is 3SUM-hard.
-    \end{thm}
-
-  }    
+%   \frame{
+%     \begin{center}
+%       \textsc{\huge{the 3SUM problem}}
+%     \end{center}
+%     \setlength{\leftmargini}{30pt}
+%     \begin{enumerate}
+%       \item[\emph{input:}] a set $S$ of $n$ numbers
+%       \item[\emph{output:}] find distinct $x,y,z\in{S}$ such that $x+y=z$
+%     \end{enumerate}   
+%     
+%     \begin{thm}[3]
+%     Under the 3SUM conjecture, the multiphase problem with $k=\Theta(n^{2.5})$ requires $\tau\ge{n^{0.5-o(1)}}$ on the word RAM.
+%     \end{thm}
+%     
+%     \begin{thm}[4]
+%     In a weighted graph with $m$ edges, finding a triangle of prescribed weight in $O(m^{1.5-\epsilon})$ time is 3SUM-hard.
+%     \end{thm}
+%     
+%     \begin{thm}[5]
+%     In a graph with $m$ edges, reporting $m$ triangles in $O(m^{\sfrac{4}{3}-\epsilon})$ time is 3SUM-hard.
+%     \end{thm}
+%   }    
   
   \frame{
     \begin{center}
@@ -331,25 +331,13 @@
        \item each vertex in $A\cup{B}$ has $O(\sfrac{n}{R})$ neighbors in $C$;
        \item there are $O(nR)$ edges in $A\times{B}$.
       \end{itemize}
-
     \end{lem}
   }  
   
   \frame{
     \begin{center}
       \textsc{\huge{Hardness of Reporting Triangles}}
-    \end{center}
-%     \begin{lem}[11]
-%       Assume Convolution-3SUM requires $\Omega(\sfrac{n^2}{f(n)})$ expected time, and let $R$ be:
-%       $$\omega(\sqrt{n\cdot{f(n)}})<R<o(\sfrac{n}{f(n)})$$.
-%       Then, $\Omega(\sfrac{n^2}{f(n)})$ expected time is needed to report $O(\sfrac{n^2}{R})$ triangles in a tripartite graph where:
-%       \begin{itemize}
-%        \item the three parts are $A,B,C$, of sizes $|A|=|B|=R\sqrt{n}$ and $|C|=n$;
-%        \item each vertex in $A\cup{B}$ has $O(\sfrac{n}{R})$ neighbors in $C$;
-%        \item there are $O(nR)$ edges in $A\times{B}$.
-%       \end{itemize}
-%     \end{lem}
-    \begin{center}
+
       \begin{tikzpicture}
        \node[rectangle split, blue, fill=cyan, draw,rectangle split horizontal,rectangle split parts=5,text height=0.5cm,align=center] at (0,0.4) {
 	\nodepart[text width=2.5cm]{one} 
@@ -377,7 +365,9 @@
        \node[circle, thick, blue, fill=lime, draw] at (0.875,-1.875) {\tiny{$i$}};
        \node[circle, thick, blue, fill=lime, draw] at (1.325,-2.125) {\tiny{$j$}};
       \end{tikzpicture}
+      
     \end{center}
+    
   }
   
   \frame{
@@ -867,6 +857,27 @@
        \node[above//below, blue] at (-4.6,-1) {$T_j=\{1,4,5,7\}$};
        \node[above//below, blue] at (-4.75,-1.5) {$\dots$};
        \node[above//below, blue] at (-5.075,-2) {$i=3$};
+      \end{tikzpicture}
+    \end{center}
+  }
+  
+  \frame{
+    \begin{center}
+      \begin{tikzpicture}
+        \node[align=center,
+              draw,
+              very thick,
+              blue,
+              fill=cyan,
+              text=blue,
+              cloud callout,
+              cloud puffs=14,
+              cloud puff arc=120,
+              cloud callout pointer segments=3,
+              anchor=pointer,
+              callout relative pointer={(240:1.5cm)},
+              aspect=2.5] at (0,0) {\fontsize{40}{50}\selectfont{\textbf{Questions?}}};
+        \node[above//below, lime] at (2.3,4.1) {\fontsize{40}{50}\selectfont{\textbf{Questions?}}};
       \end{tikzpicture}
     \end{center}
   }
