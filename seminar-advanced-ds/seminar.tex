@@ -11,7 +11,7 @@
 \usefonttheme{structuresmallcapsserif}
 \usecolortheme{rose}
 
-\author[Gilad Hoch]{\textsc{{by an article of Mihai P\v{a}tra\c{s}cu}}}
+\author[Gilad Hoch]{Gilad Hoch \\ by an article of Mihai P\v{a}tra\c{s}cu}
 \title{Towards Polynomial Lower Bounds for Dynamic Problems}
 
 \date{25.3.2014}
@@ -77,11 +77,11 @@
     \begin{center}
       \textsc{\huge{the multiphase problem}}
     \end{center}
-    \setlength{\leftmargini}{75pt}
+    \setlength{\leftmargini}{65pt}
       \begin{enumerate}
 	\item[\emph{phase   I}] pre-process an input of $k$ sets, $S_1,\dots,S_k\subset[n]$ in time $O(nk\cdot\tau)$ \linebreak(build a data structure for the next phases)
 	\item[\emph{phase  II}] process yet another input of a set $T\subseteq[n]$ in time $O(n\cdot\tau)$ \linebreak(update the data structure from phase I)
-	\item[\emph{phase III}] answer queries: given an index $i\in[k]$, determine if $S_i\cap{T}=\varnothing$
+	\item[\emph{phase III}] answer query: given an index $i\in[k]$, determine if $S_i\cap{T}=\varnothing$ in time $O(\tau)$
       \end{enumerate}
 
 
@@ -91,11 +91,11 @@
     \begin{center}
       \textsc{\huge{the multiphase problem}}
     \end{center}
-    \setlength{\leftmargini}{75pt}
+    \setlength{\leftmargini}{65pt}
     \begin{enumerate}
       \item[\emph{phase   I}] pre-process an input of $k$ sets, $S_1,\dots,S_k\subset[n]$ in time $O(nk\cdot\tau)$ \linebreak(build a data structure for the next phases)
       \item[\emph{phase  II}] process yet another input of a set $T\subseteq[n]$ in time $O(n\cdot\tau)$ \linebreak(update the data structure from phase I)
-      \item[\emph{phase III}] answer queries: given an index $i\in[k]$, determine if $S_i\cap{T}=\varnothing$
+      \item[\emph{phase III}] answer query: given an index $i\in[k]$, determine if $S_i\cap{T}=\varnothing$ in time $O(\tau)$
     \end{enumerate}    
     
     \begin{conjecture}[1]
@@ -107,11 +107,11 @@
     \begin{center}
       \textsc{\huge{the multiphase problem}}
     \end{center}
-    \setlength{\leftmargini}{75pt}
+    \setlength{\leftmargini}{65pt}
     \begin{enumerate}
       \item[\emph{phase   I}] pre-process an input of $k$ sets, $S_1,\dots,S_k\subset[n]$ in time $O(nk\cdot\tau)$ \linebreak(build a data structure for the next phases)
       \item[\emph{phase  II}] process yet another input of a set $T\subseteq[n]$ in time $O(n\cdot\tau)$ \linebreak(update the data structure from phase I)
-      \item[\emph{phase III}] answer queries: given an index $i\in[k]$, determine if $S_i\cap{T}=\varnothing$
+      \item[\emph{phase III}] answer query: given an index $i\in[k]$, determine if $S_i\cap{T}=\varnothing$ in time $O(\tau)$
     \end{enumerate}    
     
     \begin{conjecture}[1]
@@ -147,30 +147,7 @@
     \begin{thm}[3]
     Under the 3SUM conjecture, the multiphase problem with $k=\Theta(n^{2.5})$ requires $\tau\ge{n^{0.5-o(1)}}$ on the word RAM.
     \end{thm}
-  }    
-  
-%   \frame{
-%     \begin{center}
-%       \textsc{\huge{the 3SUM problem}}
-%     \end{center}
-%     \setlength{\leftmargini}{30pt}
-%     \begin{enumerate}
-%       \item[\emph{input:}] a set $S$ of $n$ numbers
-%       \item[\emph{output:}] find distinct $x,y,z\in{S}$ such that $x+y=z$
-%     \end{enumerate}   
-%     
-%     \begin{thm}[3]
-%     Under the 3SUM conjecture, the multiphase problem with $k=\Theta(n^{2.5})$ requires $\tau\ge{n^{0.5-o(1)}}$ on the word RAM.
-%     \end{thm}
-%     
-%     \begin{thm}[4]
-%     In a weighted graph with $m$ edges, finding a triangle of prescribed weight in $O(m^{1.5-\epsilon})$ time is 3SUM-hard.
-%     \end{thm}
-%     
-%     \begin{thm}[5]
-%     In a graph with $m$ edges, reporting $m$ triangles in $O(m^{\sfrac{4}{3}-\epsilon})$ time is 3SUM-hard.
-%     \end{thm}
-%   }    
+  }     
   
   \frame{
     \begin{center}
@@ -183,7 +160,10 @@
     \end{enumerate}   
     
     \begin{conjecture}[6: 3SUM-HARDNESS]
-    in the word RAM model with words of $O(\log(n))$ bits, any algorithm requires $n^{2-o(1)}$ time in expectation to determine whether a set $S\subset\{-n^3,\dots,n^3\}$ of $|S|=n$ integers contains a triple of distinct $x,y,z\in{S}$ with $x+y=z$.
+    $\forall{S}\subset\{-n^3,\dots,n^3\}, |S|=n$ \linebreak
+    $\forall$ algorithm $A$ for $3SUM$, \linebreak
+    To determine whether $\exists{x,y,z}\in{S}$ such that $x+y=z$ and $x,y,z$ are distinct, \linebreak
+    $O(n^{2-o(1)})$ time is needed in expectation for $A$ with the input $S$.
     \end{conjecture}
   }
 
